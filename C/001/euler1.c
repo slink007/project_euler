@@ -8,14 +8,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "natrualSum/limitSum.h"
+#include "naturalSum/limitSum.h"
 
 int main()
 {
 	unsigned int num1 = 3, num2 = 5, limit = 1000;
 
 	printf("The sum of all the multiples of %d and %d below %d is %d\n", \
-	num1, num2, limit, limitSum(num1, num2, limit);
+		num1, num2, limit, limitSum(num1, num2, limit));
 
 	return 0;
 }
