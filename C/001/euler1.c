@@ -11,39 +11,62 @@
 #include <stdlib.h>
 #include <string.h>
 #include "naturalSum/limitSum.h"
+#include "testInput/testInput.h"
+
+
+void printError(char* name);
 
 int main(int argc, char ** argv)
 {
-	unsigned int num1, num2, limit;
+	unsigned int num1 = 3, num2 = 5, limit = 1000;
 
-	if ( argc == 2 )
+	if ( (argc == 2) )
 	{
-		if (strcmp("-h", argv[1]) == 0)
+		if (strcmp("-h", argv[1]) == 0 ) 
 		{
 			printf("Help file triggered\n");
 			return EXIT_SUCCESS;
 		}
-	}
+		else
+			printError(argv[0]);
+	}	
 	else if (argc == 4)
 	{
-		num1 = atoi(argv[1]);
-		num2 = atoi(argv[2]);
-		limit = atoi(argv[3]);
+		int temp1 = atoi(argv[1]);
+		int temp2 = atoi(argv[2]);
+		int temp3 = atoi(argv[3]);
+		if (isValid(temp1, temp2, temp3))
+		{
+			num1 = (unsigned)temp1;
+			num2 = (unsigned)temp2;
+			limit = (unsigned)temp3;
+		}
+		else
+			printError(argv[0]);
 	}
-	else if (argc == 1)
+	else if (argc > 1) 
 	{
-		num1 = 3;
-		num2 = 5;
-		limit = 1000;
-	}
-	else 
-	{
-		fprintf (stderr,"Usage: %s <int 1> <int 2> <limit>\n", argv[0]);
-		return EXIT_FAILURE;
+		printError(argv[0]);
 	}
 
-	printf("The sum of all the multiples of %d and %d below %d is %d\n", \
+	printf("The sum of all the multiples of %u and %u below %u is %u\n", \
 		num1, num2, limit, limitSum(num1, num2, limit));
 
 	return EXIT_SUCCESS;
 }
+
+
+void printError(char* name)
+{
+	fprintf (stderr,"Usage: %s <int 1> <int 2> <limit>\n", name);
+	fprintf (stderr,"All values must be positive, whole numbers.\n");
+	fprintf (stderr,"<int 1> and <int 2> must be less than <limit>\n");
+	exit (EXIT_FAILURE);
+}
+
+
+/* TODO
+ * 1. Set particular C version in CMake  set_property(TARGET tgt PROPERTY C_STANDARD 11)
+ * 4. Update CMake file & this file
+ * 5. Compile & test
+ */
