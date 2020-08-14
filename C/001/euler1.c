@@ -65,25 +65,11 @@ void printError(char* name)
 
 void printHelp()
 {
-	int ch = 0;
-	FILE* fp = NULL;
-	
-	if ( fp = fopen("../help.txt", "r") )
-	{
-		ch = getc(fp);
-		while (ch != EOF)
-		{
-			printf("%c", ch);
-			ch = getc(fp);
-		}
-		printf("\n");
-		fclose(fp);
-		
-		exit (EXIT_SUCCESS);
-	}
-	else
-	{
-		fprintf(stderr, "Cannot find help file.\n");
-		exit (EXIT_FAILURE);
-	}
+	printf("\nProject Euler Program 1\n\n"
+           "If we list all the natural numbers below 10 that are multiples of 3 or 5 we get 3, 5, 6, and 9.\n"
+           "The sum of these multiples is 23.\n\n"
+           "You can run the program without arguments to solve this problem as stated.  You can optionally\n"
+           "provide two other multiples, and a different limit, to work out variations of this same problem.\n\n");
+
+	exit (EXIT_SUCCESS);
 }
