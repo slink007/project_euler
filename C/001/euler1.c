@@ -11,7 +11,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include "naturalSum/limitSum.h"
-//#include "naturalSum/printHelp.h"
 #include "testInput/testInput.h"
 
 
@@ -25,11 +24,7 @@ int main(int argc, char ** argv)
 	if ( (argc == 2) )
 	{
 		if (strcmp("-h", argv[1]) == 0 ) 
-		{
-			//printf("Help file triggered\n");
-			//return EXIT_SUCCESS;
 			printHelp();
-		}
 		else
 			printError(argv[0]);
 	}	
@@ -72,8 +67,12 @@ void printHelp()
 {
 	printf("Project Euler Program 1\n");
 	printf("If we list all the natural numbers below 10 that are"
-	" multiples of 3 or 5, we get 3, 5, 6 and 9. The sum of these "
-	"multiples is 23.\n");
+	" multiples of 3 or 5 we get 3, 5, 6 and 9. The sum of these "
+	"multiples is 23.\n\n");
+	printf("Calling this program with no arguments solves this problem"
+	" as stated.\n");
+	printf("You can optionally provide two numbers, and a limit, to"
+	" solve variations of this problem.\n");
 	
 	exit (EXIT_SUCCESS);
 }
