@@ -47,7 +47,7 @@ int main(int argc, char ** argv)
 		printError(argv[0]);
 	}
 
-	printf("The sum of all the multiples of %u and %u below %u is %u\n", \
+	printf("\nThe sum of all the multiples of %u and %u below %u is %u\n\n", \
 		num1, num2, limit, limitSum(num1, num2, limit));
 
 	return EXIT_SUCCESS;
@@ -65,14 +65,25 @@ void printError(char* name)
 
 void printHelp()
 {
-	printf("Project Euler Program 1\n");
-	printf("If we list all the natural numbers below 10 that are"
-	" multiples of 3 or 5 we get 3, 5, 6 and 9. The sum of these "
-	"multiples is 23.\n\n");
-	printf("Calling this program with no arguments solves this problem"
-	" as stated.\n");
-	printf("You can optionally provide two numbers, and a limit, to"
-	" solve variations of this problem.\n");
+	int ch = 0;
+	FILE* fp = NULL;
 	
-	exit (EXIT_SUCCESS);
+	if ( fp = fopen("../help.txt", "r") )
+	{
+		ch = getc(fp);
+		while (ch != EOF)
+		{
+			printf("%c", ch);
+			ch = getc(fp);
+		}
+		printf("\n");
+		fclose(fp);
+		
+		exit (EXIT_SUCCESS);
+	}
+	else
+	{
+		fprintf(stderr, "Cannot find help file.\n");
+		exit (EXIT_FAILURE);
+	}
 }
