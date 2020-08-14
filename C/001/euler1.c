@@ -11,10 +11,12 @@
 #include <stdlib.h>
 #include <string.h>
 #include "naturalSum/limitSum.h"
+//#include "naturalSum/printHelp.h"
 #include "testInput/testInput.h"
 
 
 void printError(char* name);
+void printHelp();
 
 int main(int argc, char ** argv)
 {
@@ -24,8 +26,9 @@ int main(int argc, char ** argv)
 	{
 		if (strcmp("-h", argv[1]) == 0 ) 
 		{
-			printf("Help file triggered\n");
-			return EXIT_SUCCESS;
+			//printf("Help file triggered\n");
+			//return EXIT_SUCCESS;
+			printHelp();
 		}
 		else
 			printError(argv[0]);
@@ -65,8 +68,12 @@ void printError(char* name)
 }
 
 
-/* TODO
- * 1. Set particular C version in CMake  set_property(TARGET tgt PROPERTY C_STANDARD 11)
- * 4. Update CMake file & this file
- * 5. Compile & test
- */
+void printHelp()
+{
+	printf("Project Euler Program 1\n");
+	printf("If we list all the natural numbers below 10 that are"
+	" multiples of 3 or 5, we get 3, 5, 6 and 9. The sum of these "
+	"multiples is 23.\n");
+	
+	exit (EXIT_SUCCESS);
+}
