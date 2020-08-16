@@ -6,5 +6,6 @@ add_subdirectory(testInput)
 add_executable(euler1
 euler1.c)
 
-target_link_libraries(euler1 PUBLIC naturalSum testInput)
+set_property(TARGET euler1 PROPERTY CXX_STANDARD 14)
+target_link_libraries(euler1 PRIVATE naturalSum testInput)
 
