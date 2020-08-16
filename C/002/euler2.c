@@ -7,6 +7,8 @@
  *
  * By considering the terms in the Fibonacci sequence whose values do 
  * not exceed four million, find the sum of the even-valued terms.
+ *
+ * Answer = 4613732
 */
 
 
@@ -56,7 +58,7 @@ void printHelp()
            "By considering the terms in the Fibonacci sequence whose values do not exceed four\n"
            "million, find the sum of the even-valued terms.\n"
            "You can run the program without arguments to solve this problem as stated.  You can optionally\n"
-           "provide a different limit to work out variations of this same problem.\n\n"););
+           "provide a different limit to work out variations of this same problem.\n\n");
 
 	exit (EXIT_SUCCESS);
 }

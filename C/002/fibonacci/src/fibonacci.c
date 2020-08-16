@@ -5,7 +5,7 @@
 
 fibNum firstFibonacci()
 {
-	temp fibNum;
+	fibNum temp;
 
 	temp.x = 0;
 	temp.y = 1;
