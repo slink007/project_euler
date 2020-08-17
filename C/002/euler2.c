@@ -21,20 +21,30 @@
 void printError(char* name);
 void printHelp();
 
-
 int main(int argc, char ** argv)
 {
 	fibNum f = firstFibonacci();
 	uint32_t total = 0;
+	uint32_t limit = LIMIT;
 
-	while (f.num <= LIMIT)
+	if (argc == 2)
+	{
+		int32_t temp = atoi(argv[1]);
+		if (temp < 0)
+			printError(argv[0]);
+		else
+			limit = (uint32_t)temp;
+
+	}
+
+	while (f.num <= limit)
 	{
 		if (f.num % 2 == 0)
 			total += f.num;
 		nextFib(&f);
 	}
 
-	printf("Sum of even Fibonacci numbers below %u is %u\n", LIMIT, total);
+	printf("\nSum of even Fibonacci numbers below %u is %u\n\n", limit, total);
 
 	return EXIT_SUCCESS;
 }
