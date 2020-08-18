@@ -14,6 +14,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "fibonacci/fibonacci.h"
 
 #define LIMIT 4000000
@@ -29,12 +30,16 @@ int main(int argc, char ** argv)
 
 	if (argc == 2)
 	{
-		int32_t temp = atoi(argv[1]);
-		if (temp < 0)
-			printError(argv[0]);
+		if (strcmp("-h", argv[1]) == 0 )
+			printHelp();
 		else
-			limit = (uint32_t)temp;
-
+		{
+			int32_t temp = atoi(argv[1]);
+			if (temp < 0)
+				printError(argv[0]);
+			else
+				limit = (uint32_t)temp;
+		}
 	}
 
 	while (f.num <= limit)
