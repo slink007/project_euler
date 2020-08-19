@@ -43,6 +43,7 @@ int main(int argc, char ** argv)
 void printError(char* name)
 {
 	fprintf (stderr,"Usage: %s \n", name);
+	fprintf (stderr,"Usage: %s -h \n", name);
 	fprintf (stderr,"Usage: %s <number>\n", name);
 	fprintf (stderr,"<number> must be a positive, whole number.\n");
 	exit (EXIT_FAILURE);

@@ -58,6 +58,7 @@ int main(int argc, char ** argv)
 void printError(char* name)
 {
 	fprintf (stderr,"Usage: %s \n", name);
+	fprintf (stderr,"Usage: %s -h \n", name);
 	fprintf (stderr,"Usage: %s <limit>\n", name);
 	fprintf (stderr,"<limit> must be a positive, whole number.\n");
 	exit (EXIT_FAILURE);

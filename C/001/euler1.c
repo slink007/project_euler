@@ -57,6 +57,7 @@ int main(int argc, char ** argv)
 void printError(char* name)
 {
 	fprintf (stderr,"Usage: %s\n", name);
+	fprintf (stderr,"Usage: %s -h \n", name);
 	fprintf (stderr,"Usage: %s <int 1> <int 2> <limit>\n", name);
 	fprintf (stderr,"All values must be positive, whole numbers.\n");
 	fprintf (stderr,"<int 1> and <int 2> must be less than <limit>\n");
