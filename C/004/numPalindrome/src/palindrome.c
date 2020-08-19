@@ -8,6 +8,7 @@ bool isPalindrome(uint32_t number)
 	// how many digits in the number
 	length = snprintf(NULL, 0, "%u", number);
 
+	// single digit numbers are automatically palindromic
 	if (length == 1)
 		return true;
 
@@ -18,8 +19,6 @@ bool isPalindrome(uint32_t number)
 	if(p)
 	{
 		snprintf(p, length + 1, "%u", number);
-//		uint32_t half = length / 2;
-//		bool result = true;
 		char * start = p;
 		char * end = p + (length - 1);
 
