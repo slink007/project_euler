@@ -13,14 +13,15 @@ bool isPalindrome(uint32_t number)
 
 	char * p = NULL;
 	p = malloc( (length + 1) * sizeof(char) );
+	bool result = true;	
 
 	if(p)
 	{
 		snprintf(p, length + 1, "%u", number);
 //		uint32_t half = length / 2;
-		boot result = true;
+//		bool result = true;
 		char * start = p;
-		char * end = p + (lengh - 1);
+		char * end = p + (length - 1);
 
 		while (end > start)
 		{
@@ -32,7 +33,7 @@ bool isPalindrome(uint32_t number)
 			else
 			{
 				start++;
-				end--
+				end--;
 			}
 		}
 	}
