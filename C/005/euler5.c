@@ -12,3 +12,17 @@
  *
  * Answer = 232792560
  */
+
+#include <stdio.h>
+#include <stdlib.h>
+#include "list/list.h"
+
+int main()
+{
+	Node n;
+	n.number = 7;
+	n.nextNode = NULL;
+	printf("This nodes contains a %u\n", n.number);
+
+	return(EXIT_SUCCESS);
+}
