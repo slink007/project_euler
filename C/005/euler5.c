@@ -24,5 +24,15 @@ int main()
 	n.nextNode = NULL;
 	printf("This nodes contains a %u\n", n.number);
 
+	Node* m = NULL;
+	m = malloc(sizeof(Node));
+	if (m)
+	{
+		m->number = 42;
+		m->nextNode = NULL;
+		printf("This nodes contains a %u\n", m->number);
+		free(m);
+	}
+
 	return(EXIT_SUCCESS);
 }

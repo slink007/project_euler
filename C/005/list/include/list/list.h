@@ -10,7 +10,7 @@ struct node_t
 	struct node_t * nextNode;
 };
 typedef struct node_t Node;
-typedef Node* NodePtr;
+//typedef Node* NodePtr;
 
 
 #endif
