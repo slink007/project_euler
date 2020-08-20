@@ -17,6 +17,10 @@
 #include <stdlib.h>
 #include "list/list.h"
 
+
+void list(Node **ptr, uint32_t n);
+
+
 int main()
 {
 	Node n;
@@ -25,7 +29,7 @@ int main()
 	printf("This nodes contains a %u\n", n.number);
 
 	Node* m = NULL;
-	m = malloc(sizeof(Node));
+	m = (Node *) malloc(sizeof(Node));
 	if (m)
 	{
 		m->number = 42;
@@ -34,5 +38,24 @@ int main()
 		free(m);
 	}
 
+	Node* x = NULL;
+	list(&x, 187);
+	if (x)
+	{
+		printf("This nodes contains a %u\n", x->number);
+		free(x);
+	}
+	else
+	{
+		printf("Zut allors!  Zee memory, she was not allocated!\n");
+	}
+
 	return(EXIT_SUCCESS);
+}
+
+
+void list(Node **ptr, uint32_t n)
+{
+	*ptr = (Node *) malloc(sizeof(Node));
+	(*ptr)->number = n;
 }
