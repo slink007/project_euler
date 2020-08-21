@@ -18,9 +18,6 @@
 #include "list/list.h"
 
 
-void list(Node **ptr, uint32_t n);
-
-
 int main()
 {
 	Node n;
@@ -29,6 +26,10 @@ int main()
 	printf("This nodes contains a %u\n", n.number);
 
 	Node* m = NULL;
+	
+	if (isEmpty(m))
+		printf("Before assigning a value the list is empty\n");
+	
 	m = (Node *) malloc(sizeof(Node));
 	if (m)
 	{
@@ -51,11 +52,4 @@ int main()
 	}
 
 	return(EXIT_SUCCESS);
-}
-
-
-void list(Node **ptr, uint32_t n)
-{
-	*ptr = (Node *) malloc(sizeof(Node));
-	(*ptr)->number = n;
 }
