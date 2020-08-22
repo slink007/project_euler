@@ -3,16 +3,9 @@
 
 int main()
 {
-	// Test creating a new stack directly
-	Node n;
-	n.number = 7;
-	n.nextNode = NULL;
-	printf("\nExpect to find that node contains a 7\n");
-	printf("This node contains a %u\n\n", n.number);
-
 	// Test creating a new stack with a pointer
 	Node* m = NULL;
-	printf("Expect to find that the stack is empty\n");
+	printf("\nExpect to find that the stack is empty\n");
 	if (isEmpty(&m))
 		printf("Before assigning a value the stack is empty\n");
 	
@@ -41,7 +34,7 @@ int main()
 		printf("This node contains a %u\n", x->number);
 		
 		// Test that a new value can be pushed onto the stack
-		insertAtHead(&x, 255);
+		push(&x, 255);
 		printf("Expect to find that node contains a 255\n");
 		printf("Added new node, the head now contains %u\n", x->number);
 		
@@ -57,9 +50,38 @@ int main()
 	}
 	else
 	{
-		fprintf(stderr, "Failed to allocate new stack\n");
+		fprintf(stderr, "Failed to allocate new stack\n\n");
 		exit(EXIT_FAILURE);
 	}
+	
+	
+	// Test for pop()
+	stack(&x, 0);
+	push(&x, 1);
+	
+	uint32_t* result = pop(&x);
+	printf("Expect pop() to return a 1\n");
+	if (result == NULL)
+		printf("pop() returned a NULL\n");
+	else
+		printf("pop() returned %u\n", *result);
+	
+	result = pop(&x);
+	printf("Expect pop() to return a 0\n");
+	if (result == NULL)
+		printf("pop() returned a NULL\n\n");
+	else
+		printf("pop() returned %u\n", *result);
+		
+	result = pop(&x);
+	printf("Expect pop() to return a NULL\n");
+	if (result == NULL)
+		printf("pop() returned a NULL\n\n");
+	else
+		printf("pop() returned %u\n\n", *result);
+	
+	if (x)
+		free(x);
 
 	return(EXIT_SUCCESS);
 }

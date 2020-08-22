@@ -17,7 +17,7 @@ bool isEmpty(Node** head)
 void deleteAtHead(Node** head)
 {
 	// Stack is empty - nothing to delete
-	if (head == NULL)
+	if (*head == NULL)
 		return;
 	
 	Node* temp = NULL;
@@ -27,7 +27,21 @@ void deleteAtHead(Node** head)
 }
 
 
-void insertAtHead(Node** head, uint32_t n)
+uint32_t* pop(Node** head)
+{
+	static uint32_t n;
+	
+	if (*head == NULL)
+		return NULL;
+	
+	n = (*head)->number;
+	deleteAtHead(head);
+	
+	return &n;
+}
+
+
+void push(Node** head, uint32_t n)
 {
 	Node* new = malloc(sizeof(Node));
 	new->number = n;

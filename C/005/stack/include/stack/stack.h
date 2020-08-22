@@ -32,7 +32,11 @@ void deleteAtHead(Node** head);
 // Pass in the address of a Node pointer, along with a value to store,
 // and this adds a new node to the stack.  The head of the stack is moved
 // to point at this new node.
-void insertAtHead(Node** head, uint32_t n);
+void push(Node** head, uint32_t n);
+
+
+// Pops a node off of the stack and returns the stored value.
+uint32_t* pop(Node**);
 
 
 #endif
