@@ -1,8 +1,8 @@
 /* 2520 is the smallest number that can be divided by each of the numbers from 1 to 10 without any remainder.
  * What is the smallest positive number that is evenly divisible by all of the numbers from 1 to 20?
  *
- * This is asking for the Least Common Multiple (LCM) of the listed numbers.  The process is:
- *     1. Find all prime numbers in that list and multiply them together.
+ * This is asking for the Least Common Multiple (LCM) of the stacked numbers.  The process is:
+ *     1. Find all prime numbers in that stack and multiply them together.
  *     2. Break all the non-prime nummers down into prime products.  '9' becomes 3 * 3 or 3^2,
  *        '10' becomes 2 * 5, and so on.
  *     3. Determine how many times a prime number appears in the numbers from (2) and use that
@@ -15,13 +15,13 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "list/list.h"
+#include "stack/stack.h"
 #include "primes/primes.h"
 
 
 int main()
 {
-	// Test list functionality
+	// Test stack functionality
 	Node n;
 	n.number = 7;
 	n.nextNode = NULL;
@@ -30,7 +30,7 @@ int main()
 	Node* m = NULL;
 	
 	if (isEmpty(&m))
-		printf("Before assigning a value the list is empty\n");
+		printf("Before assigning a value the stack is empty\n");
 	
 	m = (Node *) malloc(sizeof(Node));
 	
@@ -46,7 +46,7 @@ int main()
 	}
 
 	Node* x = NULL;
-	list(&x, 187);
+	stack(&x, 187);
 	if (x)
 	{
 		printf("This node contains a %u\n", x->number);

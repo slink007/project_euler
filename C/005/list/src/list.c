@@ -1,7 +1,7 @@
-#include "list/list.h"
+#include "stack/stack.h"
 
 
-void list(Node **ptr, uint32_t n)
+void stack(Node **ptr, uint32_t n)
 {
 	*ptr = (Node *) malloc(sizeof(Node));
 	(*ptr)->number = n;
