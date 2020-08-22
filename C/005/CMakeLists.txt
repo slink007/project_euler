@@ -15,3 +15,9 @@ add_executable(stackTest
 stackTest.c)
 set_property(TARGET stackTest PROPERTY CXX_STANDARD 14)
 target_link_libraries(stackTest PRIVATE stack)
+
+# test for primes library
+add_executable(primesTest
+primesTest.c)
+set_property(TARGET stackTest PROPERTY CXX_STANDARD 14)
+target_link_libraries(primesTest PRIVATE primes)

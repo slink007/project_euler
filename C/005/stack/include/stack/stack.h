@@ -1,5 +1,5 @@
-#ifndef __LIST_H__
-#define __LIST_H__
+#ifndef __STACK_H__
+#define __STACK_H__
 
 #include <stdbool.h>
 #include <stdlib.h>
@@ -20,7 +20,7 @@ typedef struct node_t Node;
 void stack(Node** ptr, uint32_t n);
 
 
-// Return True if stack is empty or False if it is not empty.
+// Return True if stack is empty.
 bool isEmpty(Node** head);
 
 

@@ -16,7 +16,7 @@ bool isEmpty(Node** head)
 
 void deleteAtHead(Node** head)
 {
-	// List is empty - nothing to delete
+	// Stack is empty - nothing to delete
 	if (head == NULL)
 		return;
 	
