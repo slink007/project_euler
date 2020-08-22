@@ -14,19 +14,9 @@ struct node_t
 typedef struct node_t Node;
 
 
-// Pass in the address of a Node pointer, along with a value to store,
-// and a new stack is created.  The pointer now points at the head of 
-// that stack.
-void stack(Node** ptr, uint32_t n);
-
-
-// Return True if stack is empty.
+// Pass in the address of the stack pointer and this returns True if 
+//stack is empty.
 bool isEmpty(Node** head);
-
-
-// Pass in the address of the stack pointer and this deletes node at 
-// the head of the stack.
-void deleteAtHead(Node** head);
 
 
 // Pass in the address of a Node pointer, along with a value to store,
@@ -35,7 +25,8 @@ void deleteAtHead(Node** head);
 void push(Node** head, uint32_t n);
 
 
-// Pops a node off of the stack and returns the stored value.
+// Pass in the address of a Node pointer and this pops the node off 
+// the top of the stack and returns the stored value.
 uint32_t* pop(Node**);
 
 

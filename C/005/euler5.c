@@ -18,10 +18,40 @@
 #include "stack/stack.h"
 #include "primes/primes.h"
 
+#define LOWER 1
+#define UPPER 20
 
 int main()
 {
-	printf("A siffusion of yellow/n");
+	uint32_t lower = LOWER;
+	uint32_t upper = UPPER;
+	Node* primes = NULL;
+	Node* notPrimes = NULL;
+	
+	// break factors out into primes and non-primes
+	for (uint32_t i = upper; i >= lower; i--)
+	{
+		if (isPrime(i))
+			push(&primes, i);
+		else
+			push(&notPrimes, i);
+	}
+	
+	// debug - validate that numbers are split out correctly
+	uint32_t* n = NULL;
+	printf("\nprimes contains: ");
+	while (primes != NULL)
+	{
+		n = pop(&primes);
+		printf("%u ", *n);
+	}
+	
+	printf("\n\nnotPrimes contains: ");
+	while (notPrimes != NULL)
+	{
+		n = pop(&notPrimes);
+		printf("%u ", *n);
+	}
 
 	return(EXIT_SUCCESS);
 }
