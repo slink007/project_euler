@@ -16,10 +16,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "list/list.h"
+#include "primes/primes.h"
 
 
 int main()
 {
+	// Test list functionality
 	Node n;
 	n.number = 7;
 	n.nextNode = NULL;
@@ -56,12 +58,20 @@ int main()
 			deleteAtHead(&x);
 			count += 1;
 		}
-		printf("Deleted %u nodes\n", count);
+		printf("Deleted %u nodes\n\n", count);
 	}
 	else
 	{
 		printf("Zut allors!  Zee memory, she was not allocated!\n");
 	}
+
+	// Test primes
+	if (isPrime(2))
+		printf("This should print because 2 is prime\n");
+	if (isPrime(3))
+		printf("This should print because 3 is prime\n");
+	if (isPrime(4))
+		printf("This should not print because 4 is not prime\n\n");
 
 	return(EXIT_SUCCESS);
 }
