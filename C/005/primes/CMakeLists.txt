@@ -1,4 +1,9 @@
 add_library(primes
 src/primes.c)
 
-target_include_directories(primes PUBLIC include)
+# original command
+# target_include_directories(primes PUBLIC include)
+
+# new command to try and include the stack library
+target_include_directories(primes PUBLIC include ../stack/include/stack)
+

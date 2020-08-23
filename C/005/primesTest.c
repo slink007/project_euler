@@ -13,6 +13,9 @@ int main()
 			printf("%u ", i);
 	}
 	printf("\n");
+
+	// If includes are correct then this won't throw compile time error.
+	Node* x = NULL;
 	
 	return EXIT_SUCCESS;
 }
