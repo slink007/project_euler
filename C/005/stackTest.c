@@ -4,34 +4,26 @@
 int main()
 {
 	Node* x = NULL;
-	uint32_t* result = NULL;
+	uint32_t result = 0;
 	
 	push(&x, 0);
 	push(&x, 1);
 	
 	result = pop(&x);
 	printf("\nExpect pop() to return a 1\n");
-	if (result == NULL)
-		printf("pop() returned a NULL\n");
-	else
-		printf("pop() returned %u\n", *result);
+	printf("pop() returned %u\n", result);
 	
 	result = pop(&x);
-	printf("Expect pop() to return a 0\n");
-	if (result == NULL)
-		printf("pop() returned a NULL\n\n");
-	else
-		printf("pop() returned %u\n", *result);
-		
-	result = pop(&x);
-	printf("Expect pop() to return a NULL\n");
-	if (result == NULL)
-		printf("pop() returned a NULL\n\n");
-	else
-		printf("pop() returned %u\n\n", *result);
+	printf("\nExpect pop() to return a 0\n");
+	printf("pop() returned %u\n\n", result);
 	
-	if (x)
+	if (isEmpty(&x))
 		free(x);
+	else
+	{
+		printf("Why is the stack not empty?\n\n");
+		return(EXIT_FAILURE);
+	}
 	
 	return(EXIT_SUCCESS);
 }

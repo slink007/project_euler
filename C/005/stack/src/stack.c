@@ -14,6 +14,12 @@ bool isEmpty(Node** head)
 }
 
 
+bool isNotEmpty(Node** head)
+{
+		return *head != NULL;
+}
+
+
 void deleteAtHead(Node** head)
 {
 	// Stack is empty - nothing to delete
@@ -27,17 +33,14 @@ void deleteAtHead(Node** head)
 }
 
 
-uint32_t* pop(Node** head)
+uint32_t pop(Node** head)
 {
-	static uint32_t n;
-	
-	if (*head == NULL)
-		return NULL;
+	uint32_t n;
 	
 	n = (*head)->number;
 	deleteAtHead(head);
 	
-	return &n;
+	return n;
 }
 
 

@@ -8,7 +8,7 @@ add_subdirectory(primes)
 add_executable(euler5
 euler5.c)
 set_property(TARGET euler5 PROPERTY CXX_STANDARD 14)
-target_link_libraries(euler5 PRIVATE stack primes)
+target_link_libraries(euler5 PRIVATE primes stack)
 
 # test for stack library
 add_executable(stackTest
