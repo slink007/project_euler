@@ -5,6 +5,6 @@ add_subdirectory(primes)
 add_executable(euler7
 euler7.c)
 
-set_property(TARGET euler3 PROPERTY CXX_STANDARD 14)
-target_link_libraries(euler3 PRIVATE primes)
+set_property(TARGET euler7 PROPERTY CXX_STANDARD 14)
+target_link_libraries(euler7 PRIVATE primes)
 
