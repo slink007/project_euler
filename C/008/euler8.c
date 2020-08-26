@@ -30,7 +30,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
-
+#include "arrayFunctions/arrays.h"
 
 #define LENGTH 1000  // The length of the array of digits
 
@@ -93,7 +93,8 @@ int main(int argc, char ** argv)
 		4,2,0,7,5,2,9,6,3,4,5,0
 		};
 	
-	
+	uint32_t adjacent = 13;
+	printf("%zu\n", adjProduct(adjacent, array, LENGTH));
 	
 	return EXIT_SUCCESS;
 }

@@ -9,7 +9,7 @@
  * 'n_adjacent' numbers.  Returns the largest product available from
  * those adjacent numbers.
  */
-size_t adjProduct(uint32_t n_adjacent, uint8_t char* array, uint32_t length);
+size_t adjProduct(uint32_t n_adjacent, uint8_t* array, uint32_t length);
 
 
 #endif
