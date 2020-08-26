@@ -6,6 +6,9 @@ size_t adjProduct(uint32_t n_adjacent, uint8_t* array, uint32_t length)
 {
 	size_t product = 1, maxProduct = 0;
 	
+	if (n_adjacent == 0)
+		return 0;
+	
 	// select the starting point for multiplication
 	for (size_t i = 0; i <= (length - n_adjacent); i++)
 	{
