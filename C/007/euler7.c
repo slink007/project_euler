@@ -34,7 +34,7 @@ int main(int argc, char ** argv)
 		}
 	}
 	
-	printf("Prime #%zu is %zu\n", limit, nthPrime(limit));
+	printf("\nPrime #%zu is %zu\n\n", limit, nthPrime(limit));
 	
 	
 	return EXIT_SUCCESS;
