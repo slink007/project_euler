@@ -5,3 +5,5 @@ src/nthPrime.c)
 
 target_include_directories(primes PUBLIC include)
 
+# this should bring in libm which is needed for math.h
+target_link_libraries(primes PUBLIC m)

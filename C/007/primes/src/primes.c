@@ -11,7 +11,8 @@ bool isPrime(size_t n)
 		
 	// Any prime factors will be sqrt(n) or lower so no need to
 	// check anything higher than that. 
-	for (size_t i = 3; (i*i) <= n; i += 2)
+	size_t factorLimit = (size_t) sqrt(n);
+	for (size_t i = 3; i <= factorLimit; i += 2)
 	{
 		if ( (n % i) == 0 )
 			return false;
