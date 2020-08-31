@@ -4,16 +4,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 #include <stdlib.h>
-
-
-// Representation of a 2D array/matrix
-struct _matrix
-{
-	uint8_t rows;
-	uint8_t cols;
-	uint8_t *values;
-};
-typedef struct _matrix Matrix2D;
+#include "matrix.h"
 
 
 // Representation of a point within a 2D array/matrix
