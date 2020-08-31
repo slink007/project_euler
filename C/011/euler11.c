@@ -73,7 +73,9 @@ int main(int argc, char ** argv)
 	
 	size_t quantity = 13;
 	
-	if (argc == 2)
+	if (argc == 1)
+		printError(argv[0]);
+	else if (argc == 2)
 	{
 		if (strcmp("-h", argv[1]) == 0 )
 			printHelp();
@@ -88,11 +90,24 @@ int main(int argc, char ** argv)
 	//p.y = 2;
 	//printf("\n%zu\n", prodUp(20, bigGrid, p, 3));
 	
+
 	Matrix2D foo;
 	foo.rows = 20;
 	foo.cols = 20;
 	foo.values = malloc(foo.rows * foo.cols * sizeof(uint8_t));
-	foo.values[0] = {8,2,22,97,38,15,0,40,0,75,4,5,7,78,52,12,50,77,91,8};
+	//foo.values[0] = {8,2,22,97,38,15,0,40,0,75,4,5,7,78,52,12,50,77,91,8};
+	
+
+	// Try to open file to fill our matrix
+	FILE *f = fopen(argv[1], "r");
+	if (f == NULL)
+	{
+		fprintf(stderr, "Unable to open file %s\n", argv[1]);
+		return EXIT_FAILURE;
+	}
+	// Need to getchar while file not EOF
+
+	fclose(f);
 	free(foo.values);
 	
 	return EXIT_SUCCESS;
