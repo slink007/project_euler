@@ -92,9 +92,11 @@ int main(int argc, char ** argv)
 	
 
 	Matrix2D foo;
-	foo.rows = 20;
+	Matrix2D *fooPtr = &foo;
+	/*foo.rows = 20;
 	foo.cols = 20;
-	foo.values = malloc(foo.rows * foo.cols * sizeof(int));
+	foo.values = malloc(foo.rows * foo.cols * sizeof(int));*/
+	matrixInit(&fooPtr, 20, 20);
 		
 
 	// Try to open file to fill our matrix
@@ -105,21 +107,21 @@ int main(int argc, char ** argv)
 		return EXIT_FAILURE;
 	}
 	
-	// Need to getchar while file not EOF
+	// Read file into memory
 	char *buffer = NULL;
 	size_t bufsize = 400;
 	size_t charsRead;
-	
 	buffer = (char *)malloc(bufsize * sizeof(char));
 	charsRead = getline(&buffer, &bufsize, f);
 	printf("Read %zu characters from the file\n", charsRead);
-	
+
+	// Parse through memory looking for the data
 	char *token = NULL;
 	size_t i = 0;
 	token = strtok(buffer, ",");
 	while (token != NULL)
 	{
-		foo.values[i] = atoi(token);
+		foo.values[i] = atoi(token);  // save data to matrix
 		i++;
 		token = strtok(NULL, ",");
 	}
@@ -128,11 +130,11 @@ int main(int argc, char ** argv)
 	unsigned int count = 1;
 	for (unsigned int j = 0; j < 400; j++)
 	{
-		if (count < 10)
-			printf("%d, ", foo.values[j]);
+		if (count < 20)
+			printf("%2d, ", foo.values[j]);
 		else
 		{
-			printf("%d\n", foo.values[j]);
+			printf("%2d\n", foo.values[j]);
 			count = 0;
 		}
 		count++;
