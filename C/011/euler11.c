@@ -84,7 +84,20 @@ int main(int argc, char ** argv)
 	printMatrix(fooPtr);
 
 	// print a particular cell
-	//printf("\n\n%d\n", *fooPtr-> (values + fooPtr) );
+	//printf("\n\n%d\n", *(fooPtr->values + (2 * fooPtr->cols)));
+	
+	Point p;
+	p.x = 5;
+	p.y = 0;
+	for (unsigned int i = 0; i < 5; i++)
+	{
+		if (canGoRight(p, i, foo.cols))
+		{
+			printf("Product of %u numbers is %lu\n", i, prodRight(fooPtr, p, i));
+		}
+		else
+			printf("Cannot find product of %u numbers\n", i);
+	}
 	
 
 	

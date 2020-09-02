@@ -44,7 +44,7 @@ void fillData(Matrix2D *m, FILE *f)
 	while (getline(&buffer, &bufsize, f) != EOF)
 	{
 		//printf("Read %zu characters from the file\n", charsRead);
-		printf("%s",buffer);
+		//printf("%s",buffer);
 		
 		// Parse through memory looking for the data
 		char *token = NULL;

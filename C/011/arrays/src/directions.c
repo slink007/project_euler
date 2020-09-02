@@ -14,7 +14,7 @@
  /* No "limit" is needed as there is no x-coordinate more "up" than 
   * x = 0.
   */ 
-bool canGoUp(Point p, size_t numDigits)
+bool canGoUp(Point p, unsigned int numDigits)
 {
 	if (numDigits == 0) return false; // 0 consecutive numbers is invalid
 	if (numDigits == 1) return true;  // always possible for 1 number
@@ -32,7 +32,7 @@ bool canGoUp(Point p, size_t numDigits)
 
 
 // Need 'rows' here to prevent reading beyond the array boundary
-bool canGoDown(Point p, size_t numDigits, size_t rows)
+bool canGoDown(Point p, unsigned int numDigits, unsigned int rows)
 {
 	if (numDigits == 0) return false; // 0 consecutive numbers is invalid
 	if (numDigits == 1) return true;  // always possible for 1 number
@@ -43,7 +43,7 @@ bool canGoDown(Point p, size_t numDigits, size_t rows)
 
 
 // Need 'columns' here to prevent reading beyond the array boundary
-bool canGoRight(Point p, size_t numDigits, size_t columns)
+bool canGoRight(Point p, unsigned int numDigits, unsigned int columns)
 {
 	if (numDigits == 0) return false; // 0 consecutive numbers is invalid
 	if (numDigits == 1) return true;  // always possible for 1 number
@@ -54,7 +54,7 @@ bool canGoRight(Point p, size_t numDigits, size_t columns)
 
 
 // No limit needed here as nothing is more "left" than y = 0.
-bool canGoLeft(Point p, size_t numDigits)
+bool canGoLeft(Point p, unsigned int numDigits)
 {
 	if (numDigits == 0) return false; // 0 consecutive numbers is invalid
 	if (numDigits == 1) return true;  // always possible for 1 number
@@ -71,28 +71,28 @@ bool canGoLeft(Point p, size_t numDigits)
 
 
 // diagonal up and left
-bool canGoUpLeft(Point p, size_t numDigits)
+bool canGoUpLeft(Point p, unsigned int numDigits)
 {
 	return canGoUp(p, numDigits) && canGoLeft(p, numDigits);
 }
 
 
 // diagonal up and right
-bool canGoUpRight(Point p, size_t numDigits, size_t columns)
+bool canGoUpRight(Point p, unsigned int numDigits, unsigned int columns)
 {
 	return canGoUp(p, numDigits) && canGoRight(p, numDigits, columns);
 }
 
 
 // diagonal down left
-bool canGoDownLeft(Point p, size_t numDigits, size_t rows)
+bool canGoDownLeft(Point p, unsigned int numDigits, unsigned int rows)
 {
 	return canGoDown(p, numDigits, rows) && canGoLeft(p, numDigits);
 }
 
 
 // diagonal down right
-bool canGoDownRight(Point p, size_t numDigits, size_t rows)
+bool canGoDownRight(Point p, unsigned int numDigits, unsigned int rows)
 {
 	return canGoDown(p, numDigits, rows) && canGoRight(p, numDigits, rows);
 }
