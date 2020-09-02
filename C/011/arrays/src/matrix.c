@@ -37,22 +37,27 @@ void fillData(Matrix2D *m, FILE *f)
 	
 	// Read file into memory
 	char *buffer = NULL;
-	size_t bufsize = (m->rows) * (m->cols);
+	size_t bufsize = m->cols;  // (m->rows) * 
 	//size_t charsRead;
 	buffer = (char *)malloc(bufsize * sizeof(char));
-	getline(&buffer, &bufsize, f);
-	//printf("Read %zu characters from the file\n", charsRead);
-	
-	// Parse through memory looking for the data
-	char *token = NULL;
 	size_t i = 0;
-	token = strtok(buffer, ",");
-	while (token != NULL)
+	while (getline(&buffer, &bufsize, f) != EOF)
 	{
-		m->values[i] = atoi(token);  // save data to matrix
-		i++;
-		token = strtok(NULL, ",");
+		//printf("Read %zu characters from the file\n", charsRead);
+		printf("%s",buffer);
+		
+		// Parse through memory looking for the data
+		char *token = NULL;
+		
+		token = strtok(buffer, ",");
+		while (token != NULL)
+		{
+			m->values[i] = atoi(token);  // save data to matrix
+			i++;
+			token = strtok(NULL, ",");
+		}
 	}
+
 	
 	free(buffer);
 }

@@ -30,6 +30,7 @@ bool canGoDownLeft(Point p, size_t numDigits, size_t rows);
 bool canGoDownRight(Point p, size_t numDigits, size_t rows);
 
 
+
 /* Functions which start at Point p on an array, move in the
  * indicated direction, calculate the product of the numbers,
  * and return that product.  All need the address of the array.
@@ -47,6 +48,8 @@ size_t prodUpRight(const uint8_t array[][20], Point p, size_t numDigits);
 size_t prodDownLeft(const uint8_t array[][20], Point p, size_t numDigits);
 size_t prodDownRight(const uint8_t array[][20], Point p, size_t numDigits);
 */
+unsigned long prodUp(Matrix2D *m, Point p, unsigned int numDigits);
+
 
 /* Return the largest possible product of "numDigits" consecutive 
  * numbers from a square, 2D array where each side is "size" units long.

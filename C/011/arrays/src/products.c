@@ -1,6 +1,20 @@
 #include "arrays/arrays.h"
 #include <stdio.h>
 
+unsigned long prodUp(Matrix2D *m, Point p, unsigned int numDigits)
+{
+	unsigned int product = 1;
+	unsigned int offset = 0;
+	
+	do
+	{
+		p.x -= offset;  // decrement since more negative == more "up"
+		product *= 1;
+		numDigits--;
+	} while (numDigits > 0);
+	
+	return product;
+}
 /*
 size_t prodUp(const uint8_t array[][20], Point p, size_t numDigits)
 {
