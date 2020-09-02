@@ -101,7 +101,10 @@ int main(int argc, char ** argv)
 
 	// Try to open file to fill our matrix
 	FILE *f = fopen(argv[1], "r");
-	if (f == NULL)
+	
+	fillData(fooPtr, f);
+	
+	/*if (f == NULL)
 	{
 		fprintf(stderr, "Unable to open file %s\n", argv[1]);
 		return EXIT_FAILURE;
@@ -114,20 +117,20 @@ int main(int argc, char ** argv)
 	buffer = (char *)malloc(bufsize * sizeof(char));
 	charsRead = getline(&buffer, &bufsize, f);
 	printf("Read %zu characters from the file\n", charsRead);
-
+*/
 	// Parse through memory looking for the data
-	char *token = NULL;
-	size_t i = 0;
-	token = strtok(buffer, ",");
-	while (token != NULL)
-	{
-		foo.values[i] = atoi(token);  // save data to matrix
-		i++;
-		token = strtok(NULL, ",");
-	}
+	//char *token = NULL;
+	//size_t i = 0;
+	//token = strtok(buffer, ",");
+	//while (token != NULL)
+	//{
+//		foo.values[i] = atoi(token);  // save data to matrix
+//		i++;
+//		token = strtok(NULL, ",");
+//	}
 	
 	// Print matrix to prove that it's getting filled
-	unsigned int count = 1;
+	/*unsigned int count = 1;
 	for (unsigned int j = 0; j < 400; j++)
 	{
 		if (count < 20)
@@ -138,10 +141,11 @@ int main(int argc, char ** argv)
 			count = 0;
 		}
 		count++;
-	}
+	}*/
+	printMatrix(fooPtr);
 
 	fclose(f);
-	free(buffer);
+	//free(buffer);
 	free(foo.values);
 	
 	return EXIT_SUCCESS;
