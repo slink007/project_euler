@@ -30,8 +30,11 @@
  *
  * The product of these numbers is 26 × 63 × 78 × 14 = 1788696.
  *
- * What is the greatest product of thirteen adjacent numbers in the same
- * direction (up, down, left, right, or diagonally) in the 20×20 grid?
+ * What is the greatest product of four adjacent numbers in the same
+ * direction if we expand the search to include all directions (up, 
+ * down, left, right, or diagonally) in the 20×20 grid?
+ * 
+ * Answer = 70600674
  *
 */
 
@@ -42,15 +45,15 @@
 #include <string.h>
 #include "arrays/arrays.h"
 
+#define LIMIT 4
+
 void printError(char* name);
 void printHelp();
 
 
 int main(int argc, char ** argv)
 {
-
-	
-	size_t quantity = 13;
+	unsigned int limit = LIMIT;
 	
 	if (argc == 1)
 		printError(argv[0]);
@@ -58,20 +61,18 @@ int main(int argc, char ** argv)
 	{
 		if (strcmp("-h", argv[1]) == 0 )
 			printHelp();
-		//else
-			//printError(argv[0]);
+	}
+	else if (argc == 3)
+	{
+		int temp = atoi(argv[2]);
+		if (temp < 0)
+			printError(argv[0]);
+		else
+			limit = (unsigned int)temp;
 	}
 	
-	//printf("Biggest product of %zu consecutive numbers is %zu\n", 
-	//	quantity, adjacentProduct(bigGrid, 20, quantity));
-	//Point p;
-	//p.x = 2;
-	//p.y = 2;
-	//printf("\n%zu\n", prodUp(20, bigGrid, p, 3));
-	
-
-	Matrix2D foo;
-	Matrix2D *fooPtr = &foo;
+	Matrix foo;
+	Matrix *fooPtr = &foo;
 
 	matrixInit(&fooPtr, 20, 20);
 		
@@ -82,25 +83,7 @@ int main(int argc, char ** argv)
 	fclose(f);
 
 	printMatrix(fooPtr);
-
-	// print a particular cell
-	//printf("\n\n%d\n", *(fooPtr->values + (2 * fooPtr->cols)));
-	
-	Point p;
-	p.x = 5;
-	p.y = 0;
-	for (unsigned int i = 0; i < 5; i++)
-	{
-		if (canGoRight(p, i, foo.cols))
-		{
-			printf("Product of %u numbers is %lu\n", i, prodRight(fooPtr, p, i));
-		}
-		else
-			printf("Cannot find product of %u numbers\n", i);
-	}
-	
-
-	
+	printf("\n\nThe highest product from %u digits is %lu\n\n", limit, adjacentProduct(fooPtr, limit));
 	free(foo.values);
 	
 	return EXIT_SUCCESS;
@@ -112,8 +95,9 @@ void printError(char* name)
 {
 	fprintf (stderr,"Usage: %s \n", name);
 	fprintf (stderr,"Usage: %s -h \n", name);
-	fprintf (stderr,"Usage: %s <number>\n", name);
-	fprintf (stderr,"<number> must be a positive, whole number.\n");
+	fprintf (stderr,"Usage: %s <path to file containing matrix>\n", name);
+	fprintf (stderr,"Usage: %s <path to file containing matrix> <number of consecutive digits>\n", name);
+	fprintf (stderr,"<number of consecutive digiits> must be a positive, whole number.\n");
 	exit (EXIT_FAILURE);
 }
 
@@ -145,7 +129,10 @@ void printHelp()
 		"R | 20 69 36 41 72 30 23 88 34 62 99 69 82 67 59 85 74 04 36 16\n"
 		"S | 20 73 35 29 78 31 90 01 74 31 49 71 48 86 81 16 23 57 05 54\n"
 		"T | 01 70 54 71 83 51 54 69 16 92 33 48 61 43 52 01 89 19 67 48\n\n"
-		"What would be the greatest product of 13 adjacent numbers?\n\n");
+		"What would be the greatest product of 4 adjacent numbers if we "
+		"expand the search to include all possible directions?\n\n"
+		"This problem can be solved as-is or an optional quantity of consecutive"
+		"digits can be passed in so that the user may \nsolve for other products\n");
 
 	exit (EXIT_SUCCESS);
 }

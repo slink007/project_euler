@@ -1,7 +1,7 @@
 #include "arrays/matrix.h"
 
 
-void matrixInit(Matrix2D** m, unsigned int rows, unsigned int cols)
+void matrixInit(Matrix** m, unsigned int rows, unsigned int cols)
 {
 	(*m)->rows = rows;
 	(*m)->cols = cols;
@@ -9,7 +9,7 @@ void matrixInit(Matrix2D** m, unsigned int rows, unsigned int cols)
 }
 
 
-void printMatrix(const Matrix2D *m)
+void printMatrix(const Matrix *m)
 {
 	unsigned int count = 1;
 	unsigned limit = (m->rows) * (m->cols);
@@ -27,7 +27,7 @@ void printMatrix(const Matrix2D *m)
 }
 
 
-void fillData(Matrix2D *m, FILE *f)
+void fillData(Matrix *m, FILE *f)
 {
 	if (f == NULL)
 	{

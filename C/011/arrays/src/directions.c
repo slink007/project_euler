@@ -1,12 +1,11 @@
 #include "arrays/arrays.h"
 
 
-/* All of the following functions assume a square, 2D array.  The 
- * x-coordinate is the rows and the y-coordinate is the columns.  
- * (x, y) = (0, 0)  corresponds with array[0][0].
- * 
- * For x more positive means more "down".  For y more positive means
- * more "right".
+/* Helper functions for determining the ability to achieve a certain
+ * number of consecutive numbers in a Matrix.  The x-coordinate is the 
+ * rows and the y-coordinate is the columns.  (x, y) = (0, 0)  
+ * corresponds with array[0][0].  For x more positive means more "down".
+ * For y more positive means more "right".
  */
  
  
@@ -14,7 +13,7 @@
  /* No "limit" is needed as there is no x-coordinate more "up" than 
   * x = 0.
   */ 
-bool canGoUp(Point p, unsigned int numDigits)
+bool consecutiveUp(Point p, unsigned int numDigits)
 {
 	if (numDigits == 0) return false; // 0 consecutive numbers is invalid
 	if (numDigits == 1) return true;  // always possible for 1 number
@@ -32,7 +31,7 @@ bool canGoUp(Point p, unsigned int numDigits)
 
 
 // Need 'rows' here to prevent reading beyond the array boundary
-bool canGoDown(Point p, unsigned int numDigits, unsigned int rows)
+bool consecutiveDown(Point p, unsigned int numDigits, unsigned int rows)
 {
 	if (numDigits == 0) return false; // 0 consecutive numbers is invalid
 	if (numDigits == 1) return true;  // always possible for 1 number
@@ -43,7 +42,7 @@ bool canGoDown(Point p, unsigned int numDigits, unsigned int rows)
 
 
 // Need 'columns' here to prevent reading beyond the array boundary
-bool canGoRight(Point p, unsigned int numDigits, unsigned int columns)
+bool consecutiveRight(Point p, unsigned int numDigits, unsigned int columns)
 {
 	if (numDigits == 0) return false; // 0 consecutive numbers is invalid
 	if (numDigits == 1) return true;  // always possible for 1 number
@@ -54,7 +53,7 @@ bool canGoRight(Point p, unsigned int numDigits, unsigned int columns)
 
 
 // No limit needed here as nothing is more "left" than y = 0.
-bool canGoLeft(Point p, unsigned int numDigits)
+bool consecutiveLeft(Point p, unsigned int numDigits)
 {
 	if (numDigits == 0) return false; // 0 consecutive numbers is invalid
 	if (numDigits == 1) return true;  // always possible for 1 number
@@ -64,35 +63,65 @@ bool canGoLeft(Point p, unsigned int numDigits)
 	 * are inclusive of the current position (that's the second
 	 * number).
 	 */
-	if (p.y >= (numDigits - 2))
+	if (p.y >= (numDigits - 1))  // was 2
 		return true;
 	return false;
 }
 
 
-// diagonal up and left
-bool canGoUpLeft(Point p, unsigned int numDigits)
+bool consecutiveUpLeft(Point p, unsigned int numDigits)
 {
-	return canGoUp(p, numDigits) && canGoLeft(p, numDigits);
+	return consecutiveUp(p, numDigits) && consecutiveLeft(p, numDigits);
 }
 
 
-// diagonal up and right
-bool canGoUpRight(Point p, unsigned int numDigits, unsigned int columns)
+bool consecutiveUpRight(Point p, unsigned int numDigits, unsigned int columns)
 {
-	return canGoUp(p, numDigits) && canGoRight(p, numDigits, columns);
+	return consecutiveUp(p, numDigits) && consecutiveRight(p, numDigits, columns);
 }
 
 
-// diagonal down left
-bool canGoDownLeft(Point p, unsigned int numDigits, unsigned int rows)
+bool consecutiveDownLeft(Point p, unsigned int numDigits, unsigned int rows)
 {
-	return canGoDown(p, numDigits, rows) && canGoLeft(p, numDigits);
+	return consecutiveDown(p, numDigits, rows) && consecutiveLeft(p, numDigits);
 }
 
 
-// diagonal down right
-bool canGoDownRight(Point p, unsigned int numDigits, unsigned int rows)
+bool consecutiveDownRight(Point p, unsigned int numDigits, unsigned int rows)
 {
-	return canGoDown(p, numDigits, rows) && canGoRight(p, numDigits, rows);
+	return consecutiveDown(p, numDigits, rows) && consecutiveRight(p, numDigits, rows);
+}
+
+
+bool consecutive(unsigned int numDigits, Direction d, Point p, Matrix *m)
+{
+	switch (d)
+	{
+		case up:
+			return consecutiveUp(p, numDigits);
+			break;
+		case down:
+			return consecutiveDown(p, numDigits, m->rows);
+			break;
+		case left:
+			return consecutiveLeft(p, numDigits);
+			break;
+		case right:
+			return consecutiveRight(p, numDigits, m->cols);
+			break;
+		case upRight:
+			return consecutiveUpRight(p, numDigits, m->cols);
+			break;
+		case upLeft:
+			return consecutiveUpLeft(p, numDigits);
+			break;
+		case downRight:
+			return consecutiveDownRight(p, numDigits, m->rows);
+			break;
+		case downLeft:
+			return consecutiveDownLeft(p, numDigits, m->rows);
+			break;
+		default:
+			return false;
+	}
 }
