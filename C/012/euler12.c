@@ -19,22 +19,24 @@
  * We can see that 28 is the first triangle number to have over five 
  * divisors.  What is the value of the first triangle number to have 
  * over five hundred divisors?
+ * 
+ * Answer = 76576500
  */
 
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-
 #include "primes/primes.h"
+#include "triangle/triangle.h"
 
-#define DIVISORS 5
+#define DIVISORS 500
 
 void printError(char* name);
 void printHelp();
 
 int main(int argc, char ** argv)
 {
-	size_t number = NUMBER;
+	size_t number = DIVISORS;
 
 	if (argc == 2)
 	{
@@ -50,7 +52,22 @@ int main(int argc, char ** argv)
 		}
 	}
 
-	printf("\nThe largest prime factor of %zu is %zu\n\n", number, largestPrimeFactor(number));
+	size_t numDivisors = 0;
+	size_t triangle;
+	do
+	{
+		triangle = nextTriangle();
+		
+		//debug
+		//printf("Testing triangle number %zu\n", triangle);
+		
+		numDivisors = divisorCount(triangle);
+		
+		//debug
+		//printf("Divisors = %zu\n", numDivisors);
+	} while (numDivisors <= number);
+	
+	printf("\nThe first triangle number with more than %zu divisors is %zu.\n\n", number, triangle);
 
 	return EXIT_SUCCESS;
 }
@@ -68,11 +85,11 @@ void printError(char* name)
 
 void printHelp()
 {
-	printf("\nProject Euler Program 3\n\n"
-		"The prime factors of 13195 are 5, 7, 13 and 29.  What is the largest prime factor\n"
-		"of the number 600851475143 ?\n\n"
+	printf("\nProject Euler Program 12\n\n"
+		"28 is the first triangle number to have over five divisors (1, 2, 4, 7, 14, 28).  What is the "
+		"value\nof the first triangle number to have over five hundred divisors?\n\n"
 		"You can run the program without arguments to solve this problem as stated.  You can optionally\n"
-		"provide a different number to find the largest prime factor of.\n\n");
+		"provide a different number of divisors.\n\n");
 
 	exit (EXIT_SUCCESS);
 }

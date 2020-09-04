@@ -1,4 +1,4 @@
 add_library(primes
-src/primes.c)
+src/divCount.c)
 
 target_include_directories(primes PUBLIC include)
