@@ -71,23 +71,29 @@ int main(int argc, char ** argv)
 			limit = (unsigned int)temp;
 	}
 	
-	Matrix foo;
-	Matrix *fooPtr = &foo;
-
-	matrixInit(&fooPtr, 20, 20);
-		
+	Matrix m;
+	Matrix *mPtr = &m;
 
 	// Try to open file to fill our matrix
-	FILE *f = fopen(argv[1], "r");
-	fillData(fooPtr, f);
-	fclose(f);
+	FILE *f = NULL;
+	f = fopen(argv[1], "r");
+	if (f)
+	{
+		matrixInit(&mPtr, 20, 20);
+		fillData(mPtr, f);
+		fclose(f);
 
-	printMatrix(fooPtr);
-	printf("\n\nThe highest product from %u digits is %lu\n\n", limit, adjacentProduct(fooPtr, limit));
-	free(foo.values);
+		printMatrix(mPtr);
+		printf("\n\nThe highest product from %u digits is %lu\n\n", limit, adjacentProduct(mPtr, limit));
+		free(m.values);
 	
-	return EXIT_SUCCESS;
-
+		return EXIT_SUCCESS;
+	}
+	else
+	{
+		fprintf(stderr, "\nUnable to open file containing matrix data.\n\n");
+		return (EXIT_FAILURE);
+	}
 }
 
 
