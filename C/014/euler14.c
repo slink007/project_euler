@@ -13,13 +13,15 @@
  * is thought that all starting numbers finish at 1.
  * 
  * Which starting number, under one million, produces the longest chain?
- *
+ * 
+ * Answer = 837799 (it generated 525 terms)
 */
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include "collatz/collatz.h"
+
 
 void printError(char* name);
 void printHelp();
