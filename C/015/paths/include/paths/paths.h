@@ -5,6 +5,6 @@
    begins at the upper-left corner and ends at the bottom-right corner.
    Only valid moves are down and right.
 */
-unsigned int numPaths(unsigned int rows, unsigned int cols);
+unsigned long numPaths(unsigned long rows, unsigned long cols);
 
 #endif
