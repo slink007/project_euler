@@ -30,50 +30,36 @@ in lattice size.
 */
 
 
-
+/* This code uses the upper-left corner of the lattice as the origin.  It 
+ * works off of a grid where each cell contains the number of paths from that
+ * cell to the end (again, only moving right or down).  It works from the end
+ * back to the start and in this way avoids repetitive calculations.
+ *
+ * Not only does this not suffer the performance hit of the previous version it 
+ * can solve a 20 x 20 lattice in less than a second.  It can also do up to a 
+ * 25 x 25 lattice just as quickly.  I didn't try taking it any higher because
+ * the solution at 25 x 25 is 126,410,606,437,752 we will soon run into limits on
+ * how large a number unsigned long can handle.
+ */
 unsigned long numPaths(unsigned long rows, unsigned long cols)
 {
-    unsigned long grid[rows + 1][cols + 1];
+    unsigned long grid[rows + 1][cols + 1];  // array of paths to the end 
 
-    // initialize with 1's along right and bottom
+    /* If we are located at any point along the bottom row, or on the right
+	 * side then there is only 1 path to the end.
+	 */
     for (unsigned long i = 0; i <= rows; i++)
         grid[i][cols] = 1;
     for (unsigned long j = 0; j <= cols; j++)
         grid[rows][j] = 1;
 
-
+	/* Beginning at a point 1 row up from the bottom, and 1 column left of the
+	 * right most edge, we start filling in the table.  Each cell contains the
+	 * sum of the paths of the cell to the right of it and the cell below it.
+	 */
     for (long int i = rows - 1; i >= 0; i--)
         for (long int j = cols - 1; j >= 0; j--)
             grid[i][j] = grid[i + 1][j] + grid[i][j + 1];
 
     return grid[0][0];
 }
-
-/* This is no better than the last version in terms of performance but it
-* compensates for that by being harder to follow.  :(
-
-*/
-
-
-/* Helper function for the next function.  Computes and returns the
- * factorial of 'n'. 
- */
-/*unsigned long factorial(unsigned long n) {
-	if (n == 0) return 1;
-	return (n * factorial(n - 1));
-}*/
-
-
-/* This implements a combination of permutations to get the answer.
- * C(n, k) = n! / ( (n - k)! * k! )
- */
-//unsigned long numPaths(unsigned long rows, unsigned long cols)
-//{
-	/* For any square or rectangular shaped lattice if you start off
-	 * in the uppper left corner, and travel to the bottom right
-	 * corner going only right or down, then there will always be
-	 * rows + columns transitions needed to complete the journey.
-	 */
-	/*unsigned long moves = rows + cols;
-	return (factorial(moves) / factorial(moves - rows)) / factorial(rows);
-}*/
