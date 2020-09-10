@@ -45,21 +45,21 @@ unsigned long numPaths(unsigned long rows, unsigned long cols)
 {
     unsigned long grid[rows + 1][cols + 1];  // array of paths to the end 
 
-    /* If we are located at any point along the bottom row, or on the right
+	/* If we are located at any point along the bottom row, or on the right
 	 * side then there is only 1 path to the end.
 	 */
-    for (unsigned long i = 0; i <= rows; i++)
-        grid[i][cols] = 1;
-    for (unsigned long j = 0; j <= cols; j++)
-        grid[rows][j] = 1;
+	for (unsigned long i = 0; i <= rows; i++)
+		grid[i][cols] = 1;
+	for (unsigned long j = 0; j <= cols; j++)
+		grid[rows][j] = 1;
 
 	/* Beginning at a point 1 row up from the bottom, and 1 column left of the
 	 * right most edge, we start filling in the table.  Each cell contains the
 	 * sum of the paths of the cell to the right of it and the cell below it.
 	 */
-    for (long int i = rows - 1; i >= 0; i--)
-        for (long int j = cols - 1; j >= 0; j--)
-            grid[i][j] = grid[i + 1][j] + grid[i][j + 1];
+	for (long int i = rows - 1; i >= 0; i--)
+		for (long int j = cols - 1; j >= 0; j--)
+			grid[i][j] = grid[i + 1][j] + grid[i][j + 1];
 
-    return grid[0][0];
+	return grid[0][0];
 }

@@ -82,7 +82,7 @@ int main(int argc, char ** argv)
 			line[strcspn(line, "\r\n")] = '\0';
 			
 			// handle lowest 50 digits of sum
-			for (int i = 49; i >= 0; i--)
+			for (int i = LENGTH - 1; i >= 0; i--)
 			{
 				int temp = (line[i] - '0') + (sum[i + 2] - '0') + carry;
 				if (temp > 9)
