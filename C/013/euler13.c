@@ -69,14 +69,11 @@ int main(int argc, char ** argv)
 		}
 
 
-		// Let's read from the file
-		int characters = 0;  // How many characters did we read
-		size_t size = 0;
-
 		// Initialize sum to zero
 		zeroes(sum, SUMLENGTH);
 
-		int carry = 0;
+		size_t size = 0;
+		int characters = 0;  // How many characters did we read
 		while (characters = getline(&line, &size, f) >= 0)
 		{
 			getSum(line, sum);
