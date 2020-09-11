@@ -13,10 +13,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "stringmath/add.h"
 
 
 // Number of digits in numbers to be added
-#define LENGTH 50  
+#define LENGTH 50
 
 // If we had a single digit number the highest possible value is 9.
 // If 50 of those are added together we get 450.  If we increase to
@@ -66,63 +67,27 @@ int main(int argc, char ** argv)
 			free(line);
 			return EXIT_FAILURE;
 		}
-		
-		
+
+
 		// Let's read from the file
 		int characters = 0;  // How many characters did we read
 		size_t size = 0;
-		
+
 		// Initialize sum to zero
 		zeroes(sum, SUMLENGTH);
-		
+
 		int carry = 0;
 		while (characters = getline(&line, &size, f) >= 0)
 		{
-			// strip off linefeed from the line
-			line[strcspn(line, "\r\n")] = '\0';
-			
-			// handle lowest 50 digits of sum
-			for (int i = LENGTH - 1; i >= 0; i--)
-			{
-				int temp = (line[i] - '0') + (sum[i + 2] - '0') + carry;
-				if (temp > 9)
-				{
-					temp -= 10;
-					carry = 1;
-				}
-				else
-					carry = 0;
-				
-				sum[i + 2] = (char)temp + '0';
-			}
-			
-			// handle two most significant sum digits
-			unsigned int nextDigit = SUMLENGTH - LINELENGTH;
-			if (carry == 1)
-			{
-				int temp = (sum[nextDigit] - '0') + carry;
-				if (temp > 9)
-				{
-					temp -= 10;
-					carry = 1;
-				}
-				else
-					carry = 0;
-				sum[nextDigit] = (char)temp + '0';
-			}
-			
-			if (carry == 1)
-			{
-				int temp = (sum[0] - '0') + carry;
-				sum[0] = (char)temp + '0';
-			}
+			getSum(line, sum);
 		}
-		
-		printf("\nThe 10 most signifcant digits of the sum are %.10s\n\n", sum);
+		fclose(f);
+
+		printf("\nThe sum is %s\n", sum);
+		printf("The 10 most signifcant digits of the sum are %.10s\n\n", sum);
 
 		free(line);
 		free(sum);
-		fclose(f);
 		return EXIT_SUCCESS;
 	}
 	else
