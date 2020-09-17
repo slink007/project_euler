@@ -37,15 +37,11 @@ void fillData(Matrix *m, FILE *f)
 	
 	// Read file into memory
 	char *buffer = NULL;
-	size_t bufsize = m->cols;  // (m->rows) * 
-	//size_t charsRead;
+	size_t bufsize = m->cols;
 	buffer = (char *)malloc(bufsize * sizeof(char));
 	size_t i = 0;
 	while (getline(&buffer, &bufsize, f) != EOF)
 	{
-		//printf("Read %zu characters from the file\n", charsRead);
-		//printf("%s",buffer);
-		
 		// Parse through memory looking for the data
 		char *token = NULL;
 		
