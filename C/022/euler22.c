@@ -28,44 +28,43 @@
 
 int main(int argc, char *argv[])
 {
-	int option;
-	FILE *f = NULL;
-	while ( (option = getopt(argc, argv, "f:")) != -1)
-	{
-		switch (option)
-		{
-			case 'f':
-				f = fopen(optarg, "r");
-				if (f == NULL)
-					fprintf(stderr, "Failed to open %s\n", optarg);
-				break;
-			case '?':  // unrecognized options and missing parameters
-				perror("That shouldn't happen\n");
-				exit (EXIT_FAILURE);
-				break;
-		}
-	}
+	int **p;
+	int *q;
 	
-	// Get names from the file
-	if (f == NULL)
-	{
-		fprintf(stderr, "Can not open list of names\n");
-		return -1;
-	}
-	char *lineptr = NULL;
-	size_t len, read;
+	p = (int **)malloc(sizeof(int *));  // enough storage to hold a pointer to int
+	*p = (int *)malloc(sizeof(int));	// enough storagte to hold an int
+	**p = 12;							// storing the int
 	
-	for (int i = 0; i < 10; i++)
-	{
-		read = getdelim(&lineptr, &len, 44, f);  // 44 is a comma
-		size_t len = strlen(lineptr);
-		lineptr[len - 1] = '\0';  // remove the comma
-		lineptr[len - 2] = '\0';  // remove trailing quote mark
-		memmove(lineptr, lineptr+1, strlen(lineptr));  // remove first quote mark
-		printf("%s\n", lineptr);
-	}
+	q = *p;
 	
-	free(lineptr);
-	fclose(f);
+	printf("'q' points where *p points so using '*q' we get: %d\n", *q);
+	printf("'*p' holds the address of the int so with '*p' we get: %d\n", *p);
+	printf("'**p' dereferencs '*p' so we get: %d\n", **p);
+	
+	free(*p);
+	free(p);
+	
+	int **x;
+	x = (int **)malloc(2 * sizeof(int *));  // should hold 2 pointers
+	
+	*(x+0) = (int *)malloc(sizeof(int));
+	*(x+1) = (int *)malloc(sizeof(int));
+	**(x+0) = 1;
+	**(x+1) = 2;
+	
+	printf("%d\n", **x);
+	printf("%d\n", **(x+1));
+	
+	free(x[1]);
+	free(x[0]);
+	free(x);
+	
 	return 0;
 }
+/*
+'q' points where *p points so using '*q' we get: 12
+'*p' holds the address of the int so with '*p' we get: -1498598720
+'**p' dereferencs '*p' so we get: 12
+1
+2
+*/
