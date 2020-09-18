@@ -58,11 +58,11 @@ int main(int argc, char *argv[])
 	for (int i = 0; i < 10; i++)
 	{
 		read = getdelim(&lineptr, &len, 44, f);  // 44 is a comma
+		size_t len = strlen(lineptr);
+		lineptr[len - 1] = '\0';  // remove the comma
+		lineptr[len - 2] = '\0';  // remove trailing quote mark
+		memmove(lineptr, lineptr+1, strlen(lineptr));  // remove first quote mark
 		printf("%s\n", lineptr);
-		
-		/* This works but I need a way to remove the comma from the string
-		 * and also a way to remove the quote marks around the name.
-		 */
 	}
 	
 	free(lineptr);
