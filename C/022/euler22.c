@@ -29,6 +29,7 @@
 struct _nl
 {
 	char **list;
+	int index;
 	int count;
 };
 typedef struct _nl nameList;
@@ -64,23 +65,68 @@ int main(int argc, char *argv[])
 	size_t len, read;
 	nameList names;
 	names.list = (char **)malloc(9 * sizeof(char *));
+	names.index = -1;
 	names.count = 0;
 	
-	for (int i = 0; i < 9; i++)
+	// fill array (works)
+	while (names.index < 9)
 	{
 		read = getdelim(&lineptr, &len, 44, f);  // 44 is a comma
-		*((names.list) + i) = malloc( (read + 1) * sizeof(char));
-		names.count += 1;
-		strcpy(*((names.list) + i), lineptr);
-		printf("%s is at count %d\n", *((names.list) + i), names.count );
+		if (read > 0)  // we got a name
+		{
+			// make index correct for where in the list to make storage for
+			// the new name
+			names.index += 1;
+			
+			// count the new name
+			names.count += 1;
+			
+			// add storage for the new name to the list
+			// +1 is for terminating '\0'
+			*((names.list) + names.index) = malloc( (read + 1) * sizeof(char));
+			
+			// copy the name we read into the storage
+			strcpy(*((names.list) + names.index), lineptr);
+			
+			// grow the list to allow for another line in the future
+			names.list = (char **)realloc(names.list, (names.count + 1) * sizeof(char *));
+			
+			// debug, verification that we are writing to list correctly
+			printf("%s is at index %d\n", *((names.list) + names.index), names.index );
+		}
 	}
+	
 	fclose(f);
 	free(lineptr);
 	
-	for (int index = names.count - 1; index >= 0; index--)
-		free( *((names.list) + index) );
+	
+	while (names.index >= 0)
+	{
+		free( *((names.list) + names.index) );
+		names.index -= 1;
+	}
 
 	free(names.list);
 	
 	return EXIT_SUCCESS;
 }
+
+
+/* Function to sort an array using insertion sort*/
+void insertionSort(int arr[], int n) 
+{ 
+    int i, key, j; 
+    for (i = 1; i < n; i++) { 
+        key = arr[i]; 
+        j = i - 1; 
+  
+        /* Move elements of arr[0..i-1], that are 
+          greater than key, to one position ahead 
+          of their current position */
+        while (j >= 0 && arr[j] > key) { 
+            arr[j + 1] = arr[j]; 
+            j = j - 1; 
+        } 
+        arr[j + 1] = key; 
+    }
+} 
