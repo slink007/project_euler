@@ -63,66 +63,24 @@ int main(int argc, char *argv[])
 	char *lineptr = NULL;
 	size_t len, read;
 	nameList names;
-	names.list = (char **)malloc(2 * sizeof(char *));
+	names.list = (char **)malloc(9 * sizeof(char *));
 	names.count = 0;
 	
-	for (int i = 0; i < 2; i++)
+	for (int i = 0; i < 9; i++)
 	{
 		read = getdelim(&lineptr, &len, 44, f);  // 44 is a comma
-		*((names.list) + i) = (char *)malloc( (read + 1) * sizeof(char));
+		*((names.list) + i) = malloc( (read + 1) * sizeof(char));
 		names.count += 1;
 		strcpy(*((names.list) + i), lineptr);
-		
-		printf("%s\n", *((names.list) + i) );
+		printf("%s is at count %d\n", *((names.list) + i), names.count );
 	}
 	fclose(f);
+	free(lineptr);
 	
-	for (int index = names.count; index >= 0; index--)
-	{
+	for (int index = names.count - 1; index >= 0; index--)
 		free( *((names.list) + index) );
-	}
+
 	free(names.list);
 	
 	return EXIT_SUCCESS;
-	
-	/*
-	int **p;
-	int *q;
-	
-	p = (int **)malloc(sizeof(int *));  // enough storage to hold a pointer to int
-	*p = (int *)malloc(sizeof(int));	// enough storagte to hold an int
-	**p = 12;							// storing the int
-	
-	q = *p;
-	
-	printf("'q' points where *p points so using '*q' we get: %d\n", *q);
-	printf("'**p' dereferencs '*p' so we get: %d\n", **p);
-	
-	free(*p);
-	free(p);
-	
-	int **x;
-	x = (int **)malloc(2 * sizeof(int *));  // should hold 2 pointers
-	
-	*(x+0) = (int *)malloc(sizeof(int));
-	*(x+1) = (int *)malloc(sizeof(int));
-	**(x+0) = 1;
-	**(x+1) = 2;
-	
-	printf("%d\n", **x);
-	printf("%d\n", **(x+1));
-	
-	free(x[1]);
-	free(x[0]);
-	free(x);
-	
-	return 0;
-	*/
 }
-/*
-'q' points where *p points so using '*q' we get: 12
-'*p' holds the address of the int so with '*p' we get: -1498598720
-'**p' dereferencs '*p' so we get: 12
-1
-2
-*/
