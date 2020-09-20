@@ -26,8 +26,66 @@
 #include <unistd.h>
 
 
+struct _nl
+{
+	char **list;
+	int count;
+};
+typedef struct _nl nameList;
+
+
 int main(int argc, char *argv[])
 {
+	int option;
+	FILE *f = NULL;
+	while ( (option = getopt(argc, argv, "f:")) != -1)
+	{
+		switch (option)
+		{
+			case 'f':
+				f = fopen(optarg, "r");
+				if (f == NULL)
+					fprintf(stderr, "Failed to open %s\n", optarg);
+				break;
+			case '?':  // unrecognized options and missing parameters
+				perror("That shouldn't happen\n");
+				exit (EXIT_FAILURE);
+				break;
+		}
+	}
+	
+	// Get names from the file
+	if (f == NULL)
+	{
+		fprintf(stderr, "Can not open list of names\n");
+		return -1;
+	}
+	char *lineptr = NULL;
+	size_t len, read;
+	nameList names;
+	names.list = (char **)malloc(2 * sizeof(char *));
+	names.count = 0;
+	
+	for (int i = 0; i < 2; i++)
+	{
+		read = getdelim(&lineptr, &len, 44, f);  // 44 is a comma
+		*((names.list) + i) = (char *)malloc( (read + 1) * sizeof(char));
+		names.count += 1;
+		strcpy(*((names.list) + i), lineptr);
+		
+		printf("%s\n", *((names.list) + i) );
+	}
+	fclose(f);
+	
+	for (int index = names.count; index >= 0; index--)
+	{
+		free( *((names.list) + index) );
+	}
+	free(names.list);
+	
+	return EXIT_SUCCESS;
+	
+	/*
 	int **p;
 	int *q;
 	
@@ -38,7 +96,6 @@ int main(int argc, char *argv[])
 	q = *p;
 	
 	printf("'q' points where *p points so using '*q' we get: %d\n", *q);
-	printf("'*p' holds the address of the int so with '*p' we get: %d\n", *p);
 	printf("'**p' dereferencs '*p' so we get: %d\n", **p);
 	
 	free(*p);
@@ -60,6 +117,7 @@ int main(int argc, char *argv[])
 	free(x);
 	
 	return 0;
+	*/
 }
 /*
 'q' points where *p points so using '*q' we get: 12
