@@ -96,6 +96,16 @@ int main(int argc, char *argv[])
 		}
 	}
 	
+	if ( strcmp( *((names.list) + 1), *((names.list) + 2) ) > 0 )
+	{
+		char *temp = *((names.list) + 1);
+		*((names.list) + 1) = *((names.list) + 2);
+		*((names.list) + 2) = temp;
+	}
+
+	for (int i = 0; i < names.count; i++)
+		printf("%s\n", *((names.list) + i));
+	
 	fclose(f);
 	free(lineptr);
 	
@@ -105,7 +115,6 @@ int main(int argc, char *argv[])
 		free( *((names.list) + names.index) );
 		names.index -= 1;
 	}
-
 	free(names.list);
 	
 	return EXIT_SUCCESS;
