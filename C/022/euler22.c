@@ -139,3 +139,22 @@ void insertionSort(int arr[], int n)
         arr[j + 1] = key; 
     }
 } 
+
+void sortNames(nameList *nl)
+{
+	for (int i = 1; i < (nl->count); i++)
+	{
+		for (int j = i - 1; j >= 0; j--)
+		{
+			if ( strcmp( *((nl->list) + j), *((nl->list) + j + 1) ) > 0 )
+			{
+				// swap
+				char *temp = *((nl->list) + j);
+				*((nl->list) + j) = *((nl->list) + j + 1);
+				*((nl->list) + j + 1) = temp;
+			}
+			else
+				break;
+		}
+	}
+}
