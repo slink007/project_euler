@@ -65,12 +65,22 @@ int main(int argc, char *argv[])
 		fprintf(stderr, "Can not open list of names\n");
 		return -1;
 	}
-	char *lineptr = NULL;
-	size_t len, read;
+	
+	
+	// create and initialize list to hold names
 	nameList names;
 	names.list = (char **)malloc(sizeof(char *));
 	names.index = -1;
 	names.count = 0;
+	
+	//char *lineptr = NULL;
+	//size_t len, read;
+	char buffer[20];  // assume all names are 20 letters or less
+	for (int x = 0; x < 20; x++)
+		buffer[x] = '\0';
+	char c;
+	int bufferIndex = 0;
+	int count = 0;
 	
 	// fill and sort array
 	/* TODO
@@ -78,7 +88,7 @@ int main(int argc, char *argv[])
 	 * the end of it.  Rework this section to use getc so that ALL the characters can be
 	 * read and used without modifying the file.
 	 */
-	while ( (read = getdelim(&lineptr, &len, 44, f)) != EOF)  // 44 is a comma
+	/*while ( (read = getdelim(&lineptr, &len, 44, f)) != EOF)  // 44 is a comma
 	{
 		// make index correct for where in the list to make storage for
 		// the new name
@@ -99,6 +109,44 @@ int main(int argc, char *argv[])
 		
 		// grow the list to allow for another line in the future
 		names.list = (char **)realloc(names.list, (names.count + 1) * sizeof(char *));
+	}*/
+	
+	while ( (c = getc(f)) != EOF )
+	{
+		if ( c != '\n' )
+		{
+			buffer[bufferIndex] = c;
+			bufferIndex++;
+			count++;
+		}
+		
+		if ( (c == ',') || (c == '\n') || (c == '\r'))
+		{
+			// make index correct for where in the list to make storage for
+			// the new name
+			names.index += 1;
+
+			// count the new name
+			names.count += 1;
+			
+			// add storage for the new name to the list
+			// +1 is for terminating '\0'
+			*((names.list) + names.index) = malloc( (count + 1) * sizeof(char));
+			
+			// copy the name we read into the storage
+			strcpy(*((names.list) + names.index), buffer);
+		
+			// sort the list as names are added
+			sortNames(&names);
+		
+			// grow the list to allow for another line in the future
+			names.list = (char **)realloc(names.list, (names.count + 1) * sizeof(char *));
+			
+			bufferIndex = 0;
+			count = 0;
+			for (int x = 0; x < 20; x++)
+				buffer[x] = '\0';
+		}
 	}
 	
 	/*for (int i = 0; i < names.count; i++)
@@ -109,7 +157,7 @@ int main(int argc, char *argv[])
 	printf("\n%zu\n", score(&names));
 	
 	fclose(f);
-	free(lineptr);
+	//free(lineptr);
 	freeNames(&names);
 
 	return EXIT_SUCCESS;
@@ -168,18 +216,20 @@ size_t charScore(char c)
 size_t score(nameList *nl)
 {
 	size_t total = 0;
-	//int foo = 0;
 	while ( (nl->index) > 0)
 	{
 		size_t subtotal = 0;
 		int length = (int)strlen(*((nl->list) + nl->index));
+		
+		// add up scores for each character in the name
 		for (int i = 0; i < length; i++)
 			subtotal += charScore( *(*((nl->list) + nl->index) + i) );
 		printf("%s ==> %zu * %d = ", *((nl->list) + nl->index), subtotal, (nl->index));
+		
+		// adjust for position within the list
 		subtotal *= (nl->index);
 		printf("%zu\n", subtotal);
 		nl->index -= 1;
-		//foo += 1;
 		total += subtotal;
 	}
 	
