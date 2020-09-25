@@ -11,11 +11,12 @@ void initList(nameList *nl)
 
 void freeNames(nameList *nl)
 {
+	(nl->count) -= 1;
 	// Free each name in the list
-	while (nl->index >= 0)
+	while (nl->count >= 0)
 	{
-		free( *((nl->list) + nl->index) );
-		nl->index -= 1;
+		free( *((nl->list) + nl->count) );
+		nl->count -= 1;
 	}
 	
 	// Free the list itself
@@ -84,4 +85,63 @@ size_t score(nameList *nl)
 	}
 	
 	return total;
+}
+
+
+void fillAndSort(nameList **nl, FILE *f)
+{
+	char c;               // storage for characters read from the file
+	char buffer[20];      // storage for complete name (all names assumed to be less than 20 letters)
+	int bufferIndex = 0;  // controls where in the buffer to write the character
+	int count = 0;        // how many characters written to the buffer
+	for (int x = 0; x < 20; x++)
+		buffer[x] = '\0';
+	
+	// fill and sort array
+	while ( (c = getc(f)) != EOF )
+	{
+		if ( c != '\n' )
+		{
+			buffer[bufferIndex] = c;
+			bufferIndex++;
+			count++;
+		}
+		
+		if ( (c == ',') || (c == '\n') )
+		{
+			// make index correct for where in the list to make storage for
+			// the new name
+			(*nl)->index += 1;
+
+			// count the new name
+			(*nl)->count += 1;
+			
+			// add storage for the new name to the list
+			// +1 is for terminating '\0'
+			*(((*nl)->list) + (*nl)->index) = malloc( (count + 1) * sizeof(char));
+			
+			// copy the name we read into the storage
+			strcpy(*(((*nl)->list) + (*nl)->index), buffer);
+					
+			// sort the list as names are added
+			sortNames(*nl);
+		
+			// grow the list to allow for another line in the future
+			char **temp = (char **)realloc((*nl)->list, ((*nl)->count + 1) * sizeof(char *));
+			if (temp == NULL)
+			{
+				fprintf(stderr, "Not enough memory to continue reading in names\n");
+				freeNames(*nl);
+				fclose(f);
+				exit(EXIT_FAILURE);
+			}
+			else
+				(*nl)->list = temp;
+			
+			bufferIndex = 0;
+			count = 0;
+			for (int x = 0; x < 20; x++)
+				buffer[x] = '\0';
+		}
+	}
 }

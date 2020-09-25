@@ -2,6 +2,7 @@
 #define __NAMES_H__
 
 
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -26,6 +27,11 @@ void freeNames(nameList *nl);
 
 // Use insertion sort to sort the names in the list.
 void sortNames(nameList *nl);
+
+
+// Reads names from a file, writes them to an array, and sorts
+// them alphabetically.
+void fillAndSort(nameList **nl, FILE *f);
 
 
 // Returns the total of all name scores

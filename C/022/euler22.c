@@ -21,8 +21,6 @@
 
 
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 #include <unistd.h>
 #include "names/names.h"
 
@@ -65,58 +63,13 @@ int main(int argc, char *argv[])
 	
 	// create and initialize list to hold names
 	nameList names;
-	initList(&names);
-	
-	char buffer[20];  // assume all names are 20 letters or less
-	for (int x = 0; x < 20; x++)
-		buffer[x] = '\0';
-	char c;
-	int bufferIndex = 0;
-	int count = 0;
-	
-	// fill and sort array
-	while ( (c = getc(f)) != EOF )
-	{
-		if ( c != '\n' )
-		{
-			buffer[bufferIndex] = c;
-			bufferIndex++;
-			count++;
-		}
-		
-		if ( (c == ',') || (c == '\n') )
-		{
-			// make index correct for where in the list to make storage for
-			// the new name
-			names.index += 1;
-
-			// count the new name
-			names.count += 1;
-			
-			// add storage for the new name to the list
-			// +1 is for terminating '\0'
-			*((names.list) + names.index) = malloc( (count + 1) * sizeof(char));
-			
-			// copy the name we read into the storage
-			strcpy(*((names.list) + names.index), buffer);
-					
-			// sort the list as names are added
-			sortNames(&names);
-		
-			// grow the list to allow for another line in the future
-			names.list = (char **)realloc(names.list, (names.count + 1) * sizeof(char *));
-			
-			bufferIndex = 0;
-			count = 0;
-			for (int x = 0; x < 20; x++)
-				buffer[x] = '\0';
-		}
-	}
-	
-	printf("\nThe total score for the names is %zu\n\n", score(&names));
-	
+	nameList *nl = &names;
+	initList(nl);
+	fillAndSort(&nl, f);
 	fclose(f);
-	freeNames(&names);
+	
+	printf("\nThe total score for the names is %zu\n\n", score(nl));
+	freeNames(nl);
 
 	return EXIT_SUCCESS;
 }
