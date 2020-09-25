@@ -38,12 +38,13 @@ void sortNames(nameList *nl);
 void freeNames(nameList *nl);
 size_t charScore(char c);
 size_t score(nameList *nl);
+void printHelp();
 
 int main(int argc, char *argv[])
 {
 	int option;
 	FILE *f = NULL;
-	while ( (option = getopt(argc, argv, "f:")) != -1)
+	while ( (option = getopt(argc, argv, "hf:")) != -1)
 	{
 		switch (option)
 		{
@@ -51,6 +52,9 @@ int main(int argc, char *argv[])
 				f = fopen(optarg, "r");
 				if (f == NULL)
 					fprintf(stderr, "Failed to open %s\n", optarg);
+				break;
+			case 'h':  // prints help text
+				printHelp();
 				break;
 			case '?':  // unrecognized options and missing parameters
 				perror("That shouldn't happen\n");
@@ -73,8 +77,6 @@ int main(int argc, char *argv[])
 	names.index = -1;
 	names.count = 0;
 	
-	//char *lineptr = NULL;
-	//size_t len, read;
 	char buffer[20];  // assume all names are 20 letters or less
 	for (int x = 0; x < 20; x++)
 		buffer[x] = '\0';
@@ -83,34 +85,6 @@ int main(int argc, char *argv[])
 	int count = 0;
 	
 	// fill and sort array
-	/* TODO
-	 * Using getdelim only works if I modify the supplied file and add a final comma onto 
-	 * the end of it.  Rework this section to use getc so that ALL the characters can be
-	 * read and used without modifying the file.
-	 */
-	/*while ( (read = getdelim(&lineptr, &len, 44, f)) != EOF)  // 44 is a comma
-	{
-		// make index correct for where in the list to make storage for
-		// the new name
-		names.index += 1;
-		
-		// count the new name
-		names.count += 1;
-		
-		// add storage for the new name to the list
-		// +1 is for terminating '\0'
-		*((names.list) + names.index) = malloc( (read + 1) * sizeof(char));
-		
-		// copy the name we read into the storage
-		strcpy(*((names.list) + names.index), lineptr);
-		
-		// sort the list as names are added
-		sortNames(&names);
-		
-		// grow the list to allow for another line in the future
-		names.list = (char **)realloc(names.list, (names.count + 1) * sizeof(char *));
-	}*/
-	
 	while ( (c = getc(f)) != EOF )
 	{
 		if ( c != '\n' )
@@ -120,7 +94,7 @@ int main(int argc, char *argv[])
 			count++;
 		}
 		
-		if ( (c == ',') || (c == '\n') || (c == '\r'))
+		if ( (c == ',') || (c == '\n') )
 		{
 			// make index correct for where in the list to make storage for
 			// the new name
@@ -135,7 +109,7 @@ int main(int argc, char *argv[])
 			
 			// copy the name we read into the storage
 			strcpy(*((names.list) + names.index), buffer);
-		
+					
 			// sort the list as names are added
 			sortNames(&names);
 		
@@ -149,15 +123,9 @@ int main(int argc, char *argv[])
 		}
 	}
 	
-	/*for (int i = 0; i < names.count; i++)
-		printf("%s\n", *((names.list) + i));
-	*/
-	
-	// test score
-	printf("\n%zu\n", score(&names));
+	printf("\nThe total score for the names is %zu\n\n", score(&names));
 	
 	fclose(f);
-	//free(lineptr);
 	freeNames(&names);
 
 	return EXIT_SUCCESS;
@@ -216,7 +184,7 @@ size_t charScore(char c)
 size_t score(nameList *nl)
 {
 	size_t total = 0;
-	while ( (nl->index) > 0)
+	while ( (nl->index) >= 0)
 	{
 		size_t subtotal = 0;
 		int length = (int)strlen(*((nl->list) + nl->index));
@@ -224,14 +192,28 @@ size_t score(nameList *nl)
 		// add up scores for each character in the name
 		for (int i = 0; i < length; i++)
 			subtotal += charScore( *(*((nl->list) + nl->index) + i) );
-		printf("%s ==> %zu * %d = ", *((nl->list) + nl->index), subtotal, (nl->index));
 		
 		// adjust for position within the list
-		subtotal *= (nl->index);
-		printf("%zu\n", subtotal);
+		subtotal *= (nl->index) + 1;
 		nl->index -= 1;
 		total += subtotal;
 	}
 	
 	return total;
+}
+
+
+void printHelp()
+{
+    printf("\nProject Euler Program 22\n\n"
+		"Using names.txt, a 46K text file containing over five-thousand first names, \n"
+		"begin by sorting it into alphabetical order. Then working out the alphabetical\n"
+		"value for each name, multiply this value by its alphabetical position in the \n"
+		"list to obtain a name score.\n\n"
+		"For example, when the list is sorted into alphabetical order, COLIN, which is\n"
+		"worth 3 + 15 + 12 + 9 + 14 = 53, is the 938th name in the list. So, COLIN would\n"
+		"obtain a score of 938 × 53 = 49714.\n\n"
+		"What is the total of all the name scores in the file?\n\n");
+
+    exit (EXIT_SUCCESS);
 }
