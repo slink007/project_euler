@@ -24,21 +24,12 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include "names/names.h"
 
 
-struct _nl
-{
-	char **list;
-	int index;
-	int count;
-};
-typedef struct _nl nameList;
-
-void sortNames(nameList *nl);
-void freeNames(nameList *nl);
-size_t charScore(char c);
-size_t score(nameList *nl);
+//size_t charScore(char c);
 void printHelp();
+
 
 int main(int argc, char *argv[])
 {
@@ -63,7 +54,8 @@ int main(int argc, char *argv[])
 		}
 	}
 	
-	// Get names from the file
+	// Testing file pointer again in case the program is called without
+	// any arguments.
 	if (f == NULL)
 	{
 		fprintf(stderr, "Can not open list of names\n");
@@ -73,9 +65,7 @@ int main(int argc, char *argv[])
 	
 	// create and initialize list to hold names
 	nameList names;
-	names.list = (char **)malloc(sizeof(char *));
-	names.index = -1;
-	names.count = 0;
+	initList(&names);
 	
 	char buffer[20];  // assume all names are 20 letters or less
 	for (int x = 0; x < 20; x++)
@@ -129,77 +119,6 @@ int main(int argc, char *argv[])
 	freeNames(&names);
 
 	return EXIT_SUCCESS;
-}
-
-
-void sortNames(nameList *nl)
-{
-	for (int i = 1; i < (nl->count); i++)
-	{
-		for (int j = i - 1; j >= 0; j--)
-		{
-			/* If the name below the current name is larger than the current name
-			 * do an insertion swap.  If not then no need to keep trying.
-			 */
-			if ( strcmp( *((nl->list) + j), *((nl->list) + j + 1) ) > 0 )
-			{
-				char *temp = *((nl->list) + j);
-				*((nl->list) + j) = *((nl->list) + j + 1);
-				*((nl->list) + j + 1) = temp;
-			}
-			else
-				break;
-		}
-	}
-}
-
-
-void freeNames(nameList *nl)
-{
-	while (nl->index >= 0)
-	{
-		free( *((nl->list) + nl->index) );
-		nl->index -= 1;
-	}
-	free(nl->list);
-}
-
-
-size_t charScore(char c)
-{
-	switch (c)
-	{
-		case '"':
-		case ',':
-			return 0;
-			break;
-		default:
-			// Correct values for 'A' to 'Z' but will break on other values.
-			return (size_t)( (c - 'A') + 1);
-			break;
-	}
-}
-
-
-size_t score(nameList *nl)
-{
-	size_t total = 0;
-	while ( (nl->index) >= 0)
-	{
-		size_t subtotal = 0;
-		int length = (int)strlen(*((nl->list) + nl->index));
-		
-		// add up scores for each character in the name
-		for (int i = 0; i < length; i++)
-			subtotal += charScore( *(*((nl->list) + nl->index) + i) );
-		
-		// adjust for position within the list
-		subtotal *= (nl->index) + 1;
-		nl->index -= 1;
-		total += subtotal;
-	}
-	
-	return total;
 }
 
 
