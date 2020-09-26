@@ -11,12 +11,11 @@ void initList(nameList *nl)
 
 void freeNames(nameList *nl)
 {
-	(nl->count) -= 1;
 	// Free each name in the list
-	while (nl->count >= 0)
+	while (nl->index >= 0)
 	{
-		free( *((nl->list) + nl->count) );
-		nl->count -= 1;
+		free( *((nl->list) + nl->index) );
+		nl->index -= 1;
 	}
 	
 	// Free the list itself
@@ -69,18 +68,19 @@ size_t charScore(char c)
 size_t score(nameList *nl)
 {
 	size_t total = 0;
-	while ( (nl->index) >= 0)
+	int index = nl->index;
+	while (index >= 0)
 	{
 		size_t subtotal = 0;
-		int length = (int)strlen(*((nl->list) + nl->index));
+		int length = (int)strlen(*((nl->list) + index));
 		
 		// add up scores for each character in the name
 		for (int i = 0; i < length; i++)
-			subtotal += charScore( *(*((nl->list) + nl->index) + i) );
+			subtotal += charScore( *(*((nl->list) + index) + i) );
 		
 		// adjust for position within the list
-		subtotal *= (nl->index) + 1;
-		nl->index -= 1;
+		subtotal *= index + 1;
+		index -= 1;
 		total += subtotal;
 	}
 	
@@ -112,17 +112,17 @@ void fillAndSort(nameList **nl, FILE *f)
 			// make index correct for where in the list to make storage for
 			// the new name
 			(*nl)->index += 1;
-
+			
 			// count the new name
 			(*nl)->count += 1;
 			
 			// add storage for the new name to the list
 			// +1 is for terminating '\0'
 			*(((*nl)->list) + (*nl)->index) = malloc( (count + 1) * sizeof(char));
-			
+						
 			// copy the name we read into the storage
 			strcpy(*(((*nl)->list) + (*nl)->index), buffer);
-					
+								
 			// sort the list as names are added
 			sortNames(*nl);
 		
@@ -145,3 +145,4 @@ void fillAndSort(nameList **nl, FILE *f)
 		}
 	}
 }
+

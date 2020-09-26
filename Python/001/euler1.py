@@ -4,6 +4,10 @@ import getopt
 import sys
 
 
+def printError():
+    print("Usage:\n    euler1.py\n    euler1.py -h\n    euler1.py -l <limit>")
+
+
 def main():
     """Project Euler Problem 1:
     
@@ -24,13 +28,17 @@ def main():
     for opt, arg in opts:
         if opt in ['-h']:         # tell the user what the program does
             print(main.__doc__)
-            print("Usage:\n    euler1.py\n    euler1.py -h\n    euler1.py -l <limit>")
             exit()
         if opt in ['-l']:         # set a different limit
-            limit = int(arg)
+            temp = int(arg)
+            if (temp < 3):
+                printError()
+                exit()
+            else:
+                limit = temp
 
     multiples = [n for n in range(3, limit) if ( (n % 3 == 0) or (n % 5 == 0) )]
-    print("The sum of all the multiples of 3 or 5 below {} is {}".format(limit, sum(multiples)))
+    print("\nThe sum of all the multiples of 3 or 5 below {} is {}\n".format(limit, sum(multiples)))
 
 
 if __name__ == '__main__':

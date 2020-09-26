@@ -9,9 +9,9 @@
 
 struct _nl
 {
-	char **list;	// An array of character pointers (strings)
 	int index;		// Controls where in the list a name is written
 	int count;		// Count of how many names are in the list
+	char **list;	// An array of character pointers (strings)
 };
 typedef struct _nl nameList;
 
