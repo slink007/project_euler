@@ -25,7 +25,6 @@
 #include "names/names.h"
 
 
-//size_t charScore(char c);
 void printHelp();
 
 
