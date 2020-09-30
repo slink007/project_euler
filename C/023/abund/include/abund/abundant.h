@@ -6,11 +6,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void addNumber(size_t n);
-
-void freeNumbers();
-
-
 // Returns true if 'n' is an abundant number.
 bool isAbundant(size_t n);
 
@@ -25,6 +20,9 @@ size_t sumOfDivisors(size_t n);
 bool notAbundantSum(size_t n);
 
 
+// Tests all positive integers from 1 to 20161 to determine if they are
+// abundant or not.  Fills an array of booleans with the results.  The
+// number under test serves as the index to the array.
 void testNumbersForAbundance();
 
 #endif

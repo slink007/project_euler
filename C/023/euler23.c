@@ -30,11 +30,7 @@
 #include <unistd.h>
 #include "abund/abundant.h"
 
-
 void printHelp();
-//size_t sumOfDivisors(size_t n);
-//bool isAbundant(size_t n);
-
 
 int main(int argc, char *argv[])
 {
@@ -56,9 +52,6 @@ int main(int argc, char *argv[])
 	}
 	
 	
-	/* Since 12 is the smallest abundant number then the sum must
-	 * include integers 1 through 11. */
-	//size_t sum = 1 + 2 + 3 + 4 + 5 + 6 + 7 + 8 + 9 + 10 + 11;
 	size_t sum = 0;
 	
 	/* Research into abundant numbers shows that integers above 20161
@@ -66,14 +59,8 @@ int main(int argc, char *argv[])
 	 * lower than the limit from the problem statement. */
 	size_t limit = 20162;
 	
-	/*for (size_t i = 12; i < limit; i++)
-	{
-		if ( isAbundant(i) )
-			addNumber(i);
-	}*/
 	testNumbersForAbundance();
 	
-	//for (size_t i = 12; i < limit; i++)
 	for (size_t i = 1; i < limit; i++)
 	{
 		if ( notAbundantSum(i) )
@@ -81,7 +68,7 @@ int main(int argc, char *argv[])
 	}
 	
 	printf("\nThe sum of all the positive integers which cannot be"
-	       " written as the sum of two abundant numbers is %zu\n\n", sum);
+	       " written as the sum of two abundant numbers is %zu.\n\n", sum);
 	
 	return EXIT_SUCCESS;
 }
