@@ -6,8 +6,23 @@
  * 5000 so I just used 5000 as it is a nice, round number and big 
  * enough to ensure a correct answer.
  */
-size_t listOfAbundantNumbers[5000];  // the name says it all...
+//size_t listOfAbundantNumbers[5000];  // the name says it all...
+bool listOfAbundantNumbers[20162];
 int abundantCounter = 0;             // how many numbers written to list
+
+
+void testNumbersForAbundance()
+{
+	/* Research into abundant numbers shows that integers above 20161
+	 * can be expressed as the sum of 2 abundant numbers.  This is
+	 * lower than the limit from the problem statement. */
+	size_t limit = 20162;
+	for (size_t i = 1; i < limit; i++)
+	{
+		//printf("Tested %zu\n", i);
+		listOfAbundantNumbers[i] = isAbundant(i);
+	}
+}
 
 
 void addNumber(size_t n)
@@ -49,12 +64,20 @@ bool isAbundant(size_t n)
 bool notAbundantSum(size_t n)
 {
 	size_t limit = n / 2;
-	for (int i = 0; i < abundantCounter; i++)
+	/*for (int i = 0; i < abundantCounter; i++)
 	{
 		if (listOfAbundantNumbers[i] > limit)
 			break;
 
 		if ( isAbundant(n - listOfAbundantNumbers[i]) )
+			return false;
+	}
+	return true;*/
+	
+	for(size_t i = 1; i <= limit; i++)
+	{
+		size_t j = n - i;
+		if (listOfAbundantNumbers[i] && listOfAbundantNumbers[j])
 			return false;
 	}
 	return true;

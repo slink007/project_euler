@@ -24,4 +24,7 @@ size_t sumOfDivisors(size_t n);
 // result of adding two abundant numbers together.
 bool notAbundantSum(size_t n);
 
+
+void testNumbersForAbundance();
+
 #endif
