@@ -1,6 +1,10 @@
 #include<stdio.h>
 #include<stdlib.h>
 
+/* SEPA algorithm comes from
+ * https://quickperm.org/soda_submit.php
+ */
+
 
 void swap(char *s, int a, int b)
 {
