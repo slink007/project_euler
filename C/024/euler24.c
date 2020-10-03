@@ -13,6 +13,7 @@
  * Answer = 2783915460
  */
 
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -26,18 +27,20 @@ void printHelp();
 
 int main(int argc, char *argv[])
 {
-	
-	/*char test_string[] = "aabcd";
-
-	do
-	{
-		printf("%s\n",test_string);
-	} while( permute(test_string, strlen(test_string)) );
-	*/
+	bool useDefault = true;  // indicates if default permutations are used
+	                         // user did not enter a custom value
+	                         
+	bool permutationSuccessful = true;  // indicates if desired number
+	                                    // of permutations reached
+	                                    
+	char testString[100];  // holds the pattern - should be more than
+	                       // large enough
+	                       
+	int permutations = 1000000;
 	
 	// handle command line options
 	int option;
-	while ( (option = getopt(argc, argv, "h")) != -1)
+	while ( (option = getopt(argc, argv, "hp:n:")) != -1)
 	{
 		switch (option)
 		{
@@ -45,12 +48,44 @@ int main(int argc, char *argv[])
 				printHelp();
 				exit (EXIT_SUCCESS);
 				break;
+			case 'p':  // user enters a different pattern
+				strcpy(testString, optarg);
+				useDefault = false;
+				break;
+			case 'n':  // user enters a different number of permutations
+				permutations = atoi(optarg);
+				if (permutations < 1)
+				{
+					fprintf(stderr, "Number of permutations must be a "
+					"positive integer\n");
+					return EXIT_FAILURE;
+				}
+				break;
 			case '?':  // unrecognized options and missing parameters
 				perror("That shouldn't happen\n");
 				exit (EXIT_FAILURE);
 				break;
 		}
 	}
+	
+	if (useDefault)
+		strcpy(testString, "0123456789");
+	int size = strlen(testString);
+		
+	for (int i = 1; i < permutations; i++)
+	{
+		int j = permute(testString, size);
+		if (j == 0)
+		{
+			permutationSuccessful = false;
+			break;
+		}
+	}
+	
+	if (permutationSuccessful)
+		printf("\nPermutation %d is %s.\n\n", permutations, testString);
+	else
+		printf("\nCannot achieve %d permutations.\n\n", permutations);
 	
 	return EXIT_SUCCESS;
 }
