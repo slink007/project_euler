@@ -12,7 +12,16 @@ class Euler1:
                 raise ValueError("Invalid limit value")
 	
     def solve(self):
-        multiples = [n for n in range(3, self.limit) if ( (n % 3 == 0) or (n % 5 == 0) )]
+        """
+        Solves the problem.
+
+        The 'or' is critical to this approach to the solution.  Going through
+        once to find all multiples of 3, and then a second time for all
+        multiples of 5, would lead to double counting numbers which are 
+        multiples of both (15 for example).
+        """
+        multiples = [n for n in range(3, self.limit) if ( (n % 3 == 0) or 
+            (n % 5 == 0) )]
         return sum(multiples)
 
 
@@ -28,4 +37,5 @@ if __name__ == '__main__':
             limit = arg
 
     e = Euler1(limit)
-    print(f"\nThe sum of all the multiples of 3 or 5 below {limit} is {e.solve()}.\n")
+    print(f"\nThe sum of all the multiples of 3 or 5 below {limit}" +
+        f" is {e.solve()}.\n")
