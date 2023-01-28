@@ -19,6 +19,13 @@ class Fibonacci:
 
 
 class Euler2:
+    def __init__(self, limit=None):
+        if limit is None:
+            self.limit = 4000000
+        else:
+            self.limit = int(limit)
+
+
     def solve(self):
         """
         Solves the problem.
@@ -26,7 +33,7 @@ class Euler2:
         total = 0
         f = Fibonacci(before_previous=1, previous=1)
         
-        while f.number < 4000000:
+        while f.number < self.limit:
             if (f.number % 2 == 0):
                 total += f.number
             f = f.next()
@@ -36,8 +43,16 @@ class Euler2:
 
 if __name__ == '__main__':
     import locale
+    import getopt
+    import sys
     locale.setlocale(locale.LC_ALL, '')
     
-    e = Euler2()
-    print(f"The sum of all even Fibonacci numbers below {4000000:n} is {e.solve():n}.")
+    limit = 4000000
+    opts, args = getopt.getopt(sys.argv[1:], "l:")
+    for opt, arg in opts:
+        if opt in ['-l']:         # set a different limit
+            limit = arg
+    
+    e = Euler2(limit=limit)
+    print(f"The sum of all even Fibonacci numbers below {limit:n} is {e.solve():n}.")
     
